@@ -1,0 +1,18 @@
+<h1>Teokset</h1>
+{% if works %}
+<ul>
+{% for work in works %}
+	<li><span style='font-size: 20px'> {{ work.title }} </span><br>
+	{{ work.type }}
+	{% for genre in work.genres.all %}
+			{{ genre }}<br>
+		{% endfor %}
+	{{ work.desc }}<br>
+	<i>{{work.pub_date}}</i><br>
+	{% for creator in work.creators.all %}
+		{{ creator }}<br>
+	{% endfor %}</li><br>
+{% endfor %}
+{% else %}
+	<p>No works are available.</p>
+{% endif %}

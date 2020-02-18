@@ -25,13 +25,12 @@ SECRET_KEY = '8o+=8y#71kc=*1mz1l-q%zo+_7%h!aeg3u52$i6qe0$85dtue2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['23.102.48.145']
+ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'rental_system.apps.RentalSystemConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
