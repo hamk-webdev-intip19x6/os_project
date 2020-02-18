@@ -5,8 +5,8 @@
 	<li><span style='font-size: 20px'> {{ work.title }} </span><br>
 	{{ work.type }}
 	{% for genre in work.genres.all %}
-			{{ genre }}<br>
-		{% endfor %}
+				{{ genre }}
+			{% endfor %}<br>
 	{{ work.desc }}<br>
 	<i>{{work.pub_date}}</i><br>
 	{% for creator in work.creators.all %}
