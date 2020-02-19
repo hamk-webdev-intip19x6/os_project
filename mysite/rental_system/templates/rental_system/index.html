@@ -1,19 +1,20 @@
+{% extends 'base.html' %}
 {% block content %}
 {% if works %}
-<ul>
 {% for work in works %}
-	<li><span style='font-size: 20px'> {{ work.title }} </span><br>
-	{{ work.type }}
-	{% for genre in work.genres.all %}
-				{{ genre }}
-			{% endfor %}<br>
-	{{ work.desc }}<br>
-	<i>{{work.pub_date}}</i><br>
-	{% for creator in work.creators.all %}
-		{{ creator }}<br>
-	{% endfor %}</li><br>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ work.title }}</h5>
+        <p class="card-text"><small class="text-muted">
+        {% for creator in work.creators.all %}
+        {{ creator }}
+        {% endfor %}</small></p>
+        <p class="card-text">{{ work.desc }}</p>
+    </div>
+</div>
+<br>
 {% endfor %}
 {% else %}
-	<p>No works are available.</p>
+<p>No works are available.</p>
 {% endif %}
 {% endblock %}
