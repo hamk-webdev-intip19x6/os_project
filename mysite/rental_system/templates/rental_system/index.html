@@ -1,18 +1,39 @@
 {% extends 'base.html' %}
 {% block content %}
-{% if works %}
-{% for work in works %}
-<div class="card">
-    <div class="card-body">
-        <a href="/rental_system/{{ work.id }}"><h5 class="card-title">{{ work.title }}</h5></a>
-        <p class="card-text"><small class="text-muted">{{ work.genres.all|join:", " }}</small></p>
-        <p class="card-text"><small class="text-muted">{{ work.creators.all|join:", " }}</small></p>
-        <p class="card-text">{{ work.desc }}</p>
+<div class="container-fluid">
+    <div class="row">
+        {% if types %}
+        <div class="col-2">
+            <nav id="sidebar">
+                <ul class="list-unstyled components">
+                    {% for type in types %}
+                    <li>
+                        <a href="#">{{ type }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+        {% endif %}
+        {% if works %}
+        <div class="col-10">
+            {% for work in works %}
+            <div class="card">
+                <div class="card-body">
+                    <a href="/rental_system/{{ work.id }}">
+                        <h5 class="card-title">{{ work.title }}</h5>
+                    </a>
+                    <p class="card-text"><small class="text-muted">{{ work.genres.all|join:", " }}</small></p>
+                    <p class="card-text"><small class="text-muted">{{ work.creators.all|join:", " }}</small></p>
+                    <p class="card-text">{{ work.desc }}</p>
+                </div>
+            </div>
+            <br>
+            {% endfor %}
+        </div>
     </div>
+    {% else %}
+    <p>No works are available.</p>
+    {% endif %}
 </div>
-<br>
-{% endfor %}
-{% else %}
-<p>No works are available.</p>
-{% endif %}
 {% endblock %}
