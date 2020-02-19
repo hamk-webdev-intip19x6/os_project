@@ -4,11 +4,9 @@
 {% for work in works %}
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">{{ work.title }}</h5>
-        <p class="card-text"><small class="text-muted">
-        {% for creator in work.creators.all %}
-        {{ creator }}
-        {% endfor %}</small></p>
+        <a href="/rental_system/{{ work.id }}"><h5 class="card-title">{{ work.title }}</h5></a>
+        <p class="card-text"><small class="text-muted">{{ work.genres.all|join:", " }}</small></p>
+        <p class="card-text"><small class="text-muted">{{ work.creators.all|join:", " }}</small></p>
         <p class="card-text">{{ work.desc }}</p>
     </div>
 </div>
