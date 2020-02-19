@@ -20,7 +20,7 @@
             {% for work in works %}
             <div class="card">
                 <div class="card-body">
-                    <a href="/rental_system/{{ work.id }}">
+                    <a href="work/{{ work.id }}">
                         <h5 class="card-title">{{ work.title }}</h5>
                     </a>
                     <p class="card-text"><small class="text-muted">{{ work.genres.all|join:", " }}</small></p>

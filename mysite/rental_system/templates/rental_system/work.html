@@ -6,5 +6,10 @@
     <p>{{ work.creators.all|join:", " }}</p>
     <p>{{ work.publishers.all|join:", "}} {{ work.pub_date }}</p>
     <p>{{ work.desc }}</p>
+    {% if user.is_authenticated %}
+    <button onclick='alert("{{ work.title }}")'>Rent</button>
+    {% else %}
+    <p>Login to rent</p>
+    {% endif %}
 </div>
 {% endblock %}
