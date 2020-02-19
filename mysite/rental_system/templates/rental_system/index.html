@@ -1,7 +1,4 @@
-{% load static %}
-<link rel="icon" href="{% static "favicon.ico" %}" type="image/x-icon">
-
-<h1>Teokset</h1>
+{% block content %}
 {% if works %}
 <ul>
 {% for work in works %}
@@ -19,3 +16,4 @@
 {% else %}
 	<p>No works are available.</p>
 {% endif %}
+{% endblock %}
