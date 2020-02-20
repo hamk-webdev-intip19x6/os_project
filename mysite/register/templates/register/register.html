@@ -1,13 +1,12 @@
 {% extends "base.html" %}
 
 {% block title %}Luo uusi käyttäjä{% endblock %}
-{% load crispy_forms_tags %}
 
 {% block content %}
     <link rel='stylesheet' type='text/css' href='style.css'>
     <form method='POST' class='form-group'>
         {% csrf_token %}
-        {{form|crispy}}
+        {{form}}
         <button type='submit' class='btn btn-success'>Register</button>
     </form>
     <h1>ÄÄÄÄ</h1>
