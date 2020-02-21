@@ -7,7 +7,11 @@
     <p>{{ work.publishers.all|join:", "}} {{ work.pub_date }}</p>
     <p>{{ work.desc }}</p>
     {% if user.is_authenticated %}
-    <button onclick='alert("{{ work.title }}")'>Rent</button>
+        {% if not rented %}
+        <button onclick='alert("{{ work.title }}")'>Rent</button>
+        {% else %}
+        <p>Already rented!</p>
+        {% endif %}
     {% else %}
     <p>Login to rent</p>
     {% endif %}
