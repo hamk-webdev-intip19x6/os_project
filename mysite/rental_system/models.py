@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 # Writer, Director and so on
@@ -35,3 +35,9 @@ class Work(models.Model):
     pub_date = models.IntegerField()
     def __str__(self):
         return self.title
+        
+class RentedWork(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    rented_work = models.OneToOneField(Work, on_delete=models.CASCADE)
+    rent_date = models.DateTimeField(auto_now_add=True)
+    return_date = models.DateTimeField()
