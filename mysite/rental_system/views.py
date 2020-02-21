@@ -12,12 +12,7 @@ def index(request):
 
 def work(request, work_id):
     work = get_object_or_404(Work, pk=work_id)
-
-    if not RentedWork.objects.filter(rented_work = work_id):
-        rented = False
-    else:
-        rented = True
-
+    rented = RentedWork.objects.filter(rented_work = work_id);
     return render(request, 'rental_system/work.html', {'work': work, 'rented': rented})
 
 def rented(request):
