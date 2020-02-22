@@ -5,6 +5,12 @@
         {% if types %}
         <div class="col-2">
             <nav id="sidebar">
+
+                 <!--searchbar-->
+                 <form name="searchform"  onsubmit="return Validate()" method="get">
+                    <input type="text" class="form-control" name="search" id="search" placeholder="Search" minlength="3">
+                </form>
+
                 <ul class="list-unstyled components">
                     {% for type in types %}
                     <li>
@@ -15,8 +21,27 @@
             </nav>
         </div>
         {% endif %}
+        <!--works-->
         {% if works %}
-        <div class="col-10">
+            <div class="col-10">
+            {% for work in works %}
+            {% if query in work.title.casefold or query in work.desc or query in work.creators.all|join:", " or query in work.genres.all|join:", "  %}
+            <div class="card">
+                <div class="card-body">
+                    <a href="work/{{ work.id }}">
+                        <h5 class="card-title">{{ work.title }}</h5>
+                    </a>
+                    <p class="card-text"><small class="text-muted">{{ work.genres.all|join:", " }}</small></p>
+                    <p class="card-text"><small class="text-muted">{{ work.creators.all|join:", " }}</small></p>
+                    <p class="card-text">{{ work.desc }}</p>
+                </div>
+            </div>
+            <br>
+            {% endif %}
+            {% endfor %}
+
+        {% if not query %}
+            <div class="col-10">
             {% for work in works %}
             <div class="card">
                 <div class="card-body">
@@ -30,10 +55,24 @@
             </div>
             <br>
             {% endfor %}
+            {% endif %}    
+
         </div>
     </div>
     {% else %}
     <p>No works are available.</p>
     {% endif %}
 </div>
+<script>
+    //ghetto, TODO: fix
+    document.getElementById("searchbar").value = "{{query}}"
+
+    function Validate() {
+    var x = document.forms["searchform"]["search"].value;
+    if (x == "") {
+        alert("Fill the form");
+    return false;
+     }
+    } 
+</script>
 {% endblock %}
