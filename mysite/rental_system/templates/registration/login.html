@@ -1,30 +1,3 @@
-<head>
-    <script>
-        var canvas, ctx, counter = 0;
-        function draw() {
-            let olli = new Image();
-            olli.src = "https://cdn.discordapp.com/emojis/674778429505142797.png?v=1"
-            requestAnimationFrame(draw);
-            canvas = document.getElementById("canvas");
-            ctx = canvas.getContext("2d");
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.save();
-            ctx.translate(300, 300);
-            ctx.rotate(counter * 0.04);
-            ctx.font = "25px Arial";
-            ctx.fillText("Yhdessä apinassa on", -75, -25);
-            ctx.fillText("jo riittävästi päänsärkyä", -75,0);
-            ctx.drawImage(olli, 0,0);
-            counter++;
-            ctx.restore();
-        }
-    </script>
-</head>
-<body onload="draw()">
-    <img src="olli.png" id="olli" style="display: none;">
-    <canvas width="600" height="600" style="border: 1px solid grey;" id="canvas")">
-
-    </canvas>
 {% block title %}Login{% endblock %}
 {% block content %}
 <form method="post" class='form-group'>
