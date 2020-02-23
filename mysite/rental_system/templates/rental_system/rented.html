@@ -23,11 +23,7 @@
                     <td>{{ item.rented_work }}</td>
                     <td>{{ item.rent_date }}</td>
                     <td>{{ item.return_date }}</td>
-                    {% if not item.returned %}
                     <td><button class="btn btn-primary">Return</button></td>
-                    {% else %}
-                    <td>Returned</td>
-                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>
