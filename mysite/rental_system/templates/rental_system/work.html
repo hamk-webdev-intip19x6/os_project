@@ -7,13 +7,28 @@
     <p>{{ work.publishers.all|join:", "}} {{ work.pub_date }}</p>
     <p>{{ work.desc }}</p>
     {% if user.is_authenticated %}
-        {% if not rented %}
-            <p>Rent</p>
-        {% else %}
-            <p>Rented</p>
-        {% endif %}
+    {% if not rented %}
+    <p>Rent</p>
+    {% else %}
+    <p>Rented</p>
+    {% endif %}
     {% else %}
     <p>Login to rent</p>
+    {% endif %}
+    {% if other_works %}
+    <div class="container-fluid">
+        <h3>Works by same Creator(s)</h3>
+        {% for other in other_works %}
+        <div class="card">
+            <div class="card-body">
+                <a href="work/1">
+                    <h5 class="card-title"><a href="{% url 'work' other.id %}">{{ other }}</a></h5>
+                </a>
+                <p class="card-text"><small class="text-muted">{{ other.creators.all|join:", " }}</small></p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
     {% endif %}
 </div>
 {% endblock %}

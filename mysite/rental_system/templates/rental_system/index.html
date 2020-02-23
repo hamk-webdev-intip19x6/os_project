@@ -3,7 +3,7 @@
 <div class="container-fluid">
     <div class="row">
         {% if types %}
-        <div class="col-2">
+        <div class="col-lg-2 col-12">
             <nav id="sidebar">
                  <!--searchbar-->
                  <form name="searchform"  onsubmit="return Validate()" method="get">
@@ -11,9 +11,18 @@
                 </form>
 
                 <ul class="list-unstyled components">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                            aria-haspopup="true" aria-expanded="false">Genres</a>
+                        <div class="dropdown-menu">
+                            {% for genre in genres %}
+                            <a class="dropdown-item" href="?search={{ genre }}">{{ genre }}</a>
+                            {% endfor %}
+                        </div>
+                    </li>
                     {% for type in types %}
                     <li>
-                        <a href="#">{{ type }}</a>
+                        <a href="?search={{ type }}">{{ type }}</a>
                     </li>
                     {% endfor %}
                 </ul>
@@ -22,7 +31,7 @@
         {% endif %}
         <!--works-->
         {% if works %}
-            <div class="col-10">
+            <div class="col-lg-10 col-12">
             {% for work in works %}
             {% if query in work.title.casefold or query in work.desc or query in work.creators.all|join:", " or query in work.genres.all|join:", "  %}
             <div class="card">

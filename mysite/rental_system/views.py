@@ -3,13 +3,14 @@ from django.http import HttpResponse
 from django.template import loader
 from django.db.models import Q
 from operator import attrgetter
-from .models import Work, Type, RentedWork
+from .models import Work, Type, Genre, RentedWork
 
 
 def index(request):
     works = Work.objects.all()
     types = Type.objects.all()
-    context = {'works': works, 'types': types}
+    genres = Genre.objects.all()
+    context = {'works': works, 'types': types, 'genres': genres}
 
     #search
     query = ""
@@ -25,9 +26,11 @@ def index(request):
 
 def work(request, work_id):
     work = get_object_or_404(Work, pk=work_id)
+    creators = work.creators.all()
+    other_works = list(Work.objects.filter(~Q(id = work_id),creators__in=creators))[:5]
     rented = RentedWork.objects.filter(rented_work_id = work_id)
 
-    return render(request, 'rental_system/work.html', {'work': work, 'rented': rented})
+    return render(request, 'rental_system/work.html', {'work': work, 'rented': rented, 'other_works': other_works})
 
 def rented(request):
     current_user = request.user
