@@ -10,7 +10,12 @@
                     <input type="text" class="form-control" name="search" id="search" placeholder="Search" minlength="3" autocomplete="off">
                 </form>
 
-                <ul class="list-unstyled components">
+                <ul class="nav flex-column">
+                    {% for type in types %}
+                    <li>
+                        <a href="?search={{ type }}" class="nav-link">{{ type }}</a>
+                    </li>
+                    {% endfor %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                             aria-haspopup="true" aria-expanded="false">Genres</a>
@@ -20,11 +25,6 @@
                             {% endfor %}
                         </div>
                     </li>
-                    {% for type in types %}
-                    <li>
-                        <a href="?search={{ type }}">{{ type }}</a>
-                    </li>
-                    {% endfor %}
                 </ul>
             </nav>
         </div>
