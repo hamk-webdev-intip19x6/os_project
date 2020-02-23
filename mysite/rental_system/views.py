@@ -25,7 +25,9 @@ def index(request):
 
 def work(request, work_id):
     work = get_object_or_404(Work, pk=work_id)
-    rented = RentedWork.objects.filter(rented_work = work_id);
+    rentedWork = RentedWork.objects.filter(rented_work_id = work_id)
+    rented = rentedWork.filter(returned = False)
+
     return render(request, 'rental_system/work.html', {'work': work, 'rented': rented})
 
 def rented(request):

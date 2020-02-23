@@ -8,9 +8,9 @@
     <p>{{ work.desc }}</p>
     {% if user.is_authenticated %}
         {% if not rented %}
-        <button onclick='alert("{{ work.title }}")'>Rent</button>
+            <p>Rent</p>
         {% else %}
-        <p>Already rented!</p>
+            <p>Rented</p>
         {% endif %}
     {% else %}
     <p>Login to rent</p>

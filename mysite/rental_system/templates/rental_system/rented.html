@@ -4,20 +4,33 @@
 {% if rented %}
 {% localtime on %}
 <div class="container">
-<table style='width: 100%;'>
-    <tr>
-        <th>Title</th>
-        <th>Rent date</th>
-        <th>Return date</th>
-    </tr>
-    {% for item in rented %}
-    <tr>
-        <td>{{ item.rented_work }}</td>
-        <td>{{ item.rent_date }}</td>
-        <td>{{ item.return_date }}</td>
-    </tr>
-    {% endfor %}
-</table>
+    <div class="table-responsive">
+        <h2>Your rented works!</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Rent date</th>
+                    <th>Return date</th>
+                    <th>Return</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in rented %}
+                <tr>
+                    <td>{{ item.rented_work }}</td>
+                    <td>{{ item.rent_date }}</td>
+                    <td>{{ item.return_date }}</td>
+                    {% if not item.returned %}
+                    <td><button class="btn btn-primary">Return</button></td>
+                    {% else %}
+                    <td>Returned</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endlocaltime %}
 {% else %}
