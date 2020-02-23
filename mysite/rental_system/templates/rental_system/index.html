@@ -7,7 +7,7 @@
             <nav id="sidebar">
                  <!--searchbar-->
                  <form name="searchform"  onsubmit="return Validate()" method="get">
-                    <input type="text" class="form-control" name="search" id="search" placeholder="Search" minlength="3">
+                    <input type="text" class="form-control" name="search" id="search" placeholder="Search" minlength="3" autocomplete="off">
                 </form>
 
                 <ul class="list-unstyled components">
@@ -54,8 +54,7 @@
             </div>
             <br>
             {% endfor %}
-            {% endif %}    
-
+            {% endif %}
         </div>
     </div>
     {% else %}
