@@ -6,6 +6,7 @@ from operator import attrgetter
 from .models import Work, Type, Genre, RentedWork
 
 
+
 def index(request):
     works = Work.objects.all()
     types = Type.objects.all()

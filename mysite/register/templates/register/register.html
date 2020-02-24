@@ -8,26 +8,66 @@
 		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>Rental System</title>
     <style>
+        
+       /* form [name='password1'] {
+            margin: auto;
+            background-color: #00FF0C;
+        }*/
+        
         .container {
           margin: auto;
-          width: 50%;
+          margin-top: 200px;
+          text-align: center;
+          width: 20%;
           padding: 10px;
-          background-color: #EBDEDC;
+          background-color: #F5EEED;
+          outline: 1px solid lightgray;
+        }
+
+        .form-group {
+            width: 45%;
+            margin: 0 auto;
+            margin-bottom: 1px;
+        }
+
+        form [type='text'], form [type='password'] {
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .footer {
+          margin: auto;
+          margin-top: 12px;
+	      text-align: center;
+          max-width: 20%;
+          padding: 10px;
+          background-color: #F5EEED;
+          outline: 1px solid lightgray;
         }
         </style>
 </head>
 <div class ="container">
-<h1>Register a new account</h1>
+<h2>Register a new account</h2>
 <form method='POST' class='form-group'>
     {% csrf_token %}
     <table>
-        {{form.as_table}}
+        {% for fields in form %}
+        <tr><td>{{fields}}</td></tr>
+        {% endfor %}
+        <!--{{form.as_table}}-->
         <tr>
             <td>
-                <button type='submit' class='btn btn-success'>Register</button>
+                <button type='submit' style='width: 100%' class='btn btn-success'>Register</button>
             </td>
         </tr>
     </table>
 </form>
+</div>
+
+<div class ="footer">
+    <h5>Already registered?</h5>
+    <table>
+        <a href="/login">Log in</a>
+    </table>
 </div>
 {% endblock %}
