@@ -38,9 +38,10 @@ class Work(models.Model):
         
 class RentedWork(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
-    rented_work = models.OneToOneField(Work, on_delete=models.CASCADE)
+    rented_work = models.ForeignKey(Work, on_delete=models.CASCADE)
     rent_date = models.DateTimeField(auto_now_add=True)
     return_date = models.DateTimeField()
+    returned = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username + " " + self.rented_work.title
