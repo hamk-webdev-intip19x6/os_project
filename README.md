@@ -3,6 +3,8 @@ Projektin tarkoituksena on tehdä [Djangoa](https://www.djangoproject.com/) käy
 
 Samu Savikko, Olli Kokko ja Joni Heikkonen
 
+## Riippuvuudet
+[django-widget-tweaks](https://github.com/jazzband/django-widget-tweaks)
 
 ## Ominaisuudet
 * Rekisteröityminen & sisäänkirjautuminen
