@@ -6,7 +6,11 @@ from operator import attrgetter
 from .models import Work, Type, Genre, RentedWork
 from django.contrib.auth.decorators import login_required
 import datetime
+from django.utils import timezone
 from django.core.paginator import Paginator
+from django.core.exceptions import EmptyResultSet
+
+from django.core import serializers
 
 def index(request):
     works = Work.objects.all()
@@ -38,9 +42,14 @@ def work(request, work_id):
     work = get_object_or_404(Work, pk=work_id)
     creators = work.creators.all()
     other_works = list(Work.objects.filter(~Q(id = work_id),creators__in=creators))[:5]
-    rented = RentedWork.objects.filter(rented_work_id = work_id)
+    rented = RentedWork.objects.all()
 
-    return render(request, 'rental_system/work.html', {'work': work, 'rented': rented, 'other_works': other_works})
+    if rented.filter(rented_work_id = work_id).exists():
+        returned = rented.filter(rented_work_id = work_id, returned=False).order_by('-rent_date').first()
+    else:
+        returned = False
+
+    return render(request, 'rental_system/work.html', {'work': work, 'rented': returned, 'other_works': other_works})
 
 @login_required
 def rented(request):
@@ -79,3 +88,8 @@ def rent_work(request, work_id):
         return redirect('rented')
     else:
         return redirect('work', work_id)
+
+def test(request, work_id):
+    rented = RentedWork.objects.all()
+    data = serializers.serialize('json', rented)
+    return render(request, 'rental_system/test.html', {'data': data})
