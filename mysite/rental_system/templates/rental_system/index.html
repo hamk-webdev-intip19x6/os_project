@@ -5,11 +5,12 @@
         {% if types %}
         <div class="col-lg-2 col-12">
             <nav id="sidebar">
-                <!--searchbar-->
-                <form name="searchform" onsubmit="return Validate()" method="get">
+                <!--searchbar-->       
+                <form name="searchform" method="GET">
                     <input type="text" class="form-control" name="search" id="search" placeholder="Search" minlength="3"
-                        autocomplete="off">
+                        autocomplete="off" required>
                 </form>
+             
 
                 <ul class="nav flex-column">
                     {% for type in types %}
@@ -88,18 +89,4 @@
             {% endif %}
         </span>
     </div>
-    <script>
-        //ghetto, TODO: fix
-        document.getElementById("searchbar").value = "{{query}}"
-
-        function Validate() {
-            var x = document.forms["searchform"]["search"].value;
-            if (x == "") {
-                alert("Fill the form");
-                return false;
-            }
-        }
-
-
-    </script>
     {% endblock %}
