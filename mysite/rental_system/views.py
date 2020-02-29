@@ -6,17 +6,25 @@ from operator import attrgetter
 from .models import Work, Type, Genre, RentedWork
 from django.contrib.auth.decorators import login_required
 import datetime
-
+from django.core.paginator import Paginator
 
 def index(request):
     works = Work.objects.all()
     types = Type.objects.all()
     genres = Genre.objects.all()
-    context = {'works': works, 'types': types, 'genres': genres}
+    if not request.GET.get('search'):
+        paginator = Paginator(works, 2)
+
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+    else:
+        page_obj = works
+
+    context = {'works': page_obj, 'types': types, 'genres': genres}
 
     #search
     query = ""
-    if request.GET:
+    if request.GET.get('search'):
         query = request.GET['search']
         context['query'] = str(query)
     
@@ -64,10 +72,10 @@ def return_work(request, work_id):
 def rent_work(request, work_id):
     current_user = request.user
     work = Work.objects.get(pk=work_id)
-    today = datetime.date.today()
+    time = timezone.now() + datetime.timedelta(days=30)
     rentedWorks = RentedWork.objects.all()
     if not rentedWorks.filter(rented_work__id = work_id, returned = False):
-        rentedWorks.create(user=current_user, rented_work = work, return_date = today + datetime.timedelta(7))
+        rentedWorks.create(user=current_user, rented_work = work, return_date = time)
         return redirect('rented')
     else:
         return redirect('work', work_id)

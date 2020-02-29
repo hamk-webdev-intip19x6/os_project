@@ -19,7 +19,7 @@
             </thead>
             <tbody>
                 {% for item in rented %}
-                {% if not item.returned %}
+                {% if not item.returned %}}
                 <tr>
                     <td>{{ item.rented_work }}</td>
                     <td>{{ item.rent_date }}</td>
@@ -34,6 +34,6 @@
 </div>
 {% endlocaltime %}
 {% else %}
-<p>You haven't rented anything!</p>
+<tr><td>You haven't rented anything!</td></tr>
 {% endif %}
 {% endblock %}
