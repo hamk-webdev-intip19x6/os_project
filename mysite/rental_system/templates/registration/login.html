@@ -1,3 +1,4 @@
+{% load widget_tweaks %}
 {% block content %}
 <head>
 	<!-- Required meta tags -->
@@ -30,8 +31,11 @@
     <h2>Log in</h2>
 <form method='POST' class='form-group'>
     {% csrf_token %}
-    {{ form.as_p }}
-
+    {% for field in form.visible_fields%}
+    <div class="form-group">
+      {% render_field field class="form-control" placeholder=field.label %}
+    </div>
+    {% endfor %}
     <button type='submit' style='width: 100%' class='btn btn-success'>Login</button>
 </form>
 </div>

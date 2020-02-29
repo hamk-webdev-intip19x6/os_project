@@ -1,3 +1,4 @@
+{% load widget_tweaks %}
 {% block content %}
 <head>
 	<!-- Required meta tags -->
@@ -41,12 +42,14 @@
         }
 
         .etu {
+            margin-top: 2%;
             width: 50%;
             float: left;
             padding-right: 1%;
         }
 
         .suku {
+            margin-top: 2%;
             width: 50%;
             float: left;
             padding-left: 1%;
@@ -59,17 +62,16 @@
 <form method='POST' class='form-group'>
     {% csrf_token %}
     <table>
-        {{form.username}}
-        {{form.email}}
+        {% render_field form.username class="form-control" placeholder='Username' %}
+        {% render_field form.email class="form-control" placeholder='Email' %}
         <div class="etu">
-        {{form.first_name}}
+        {% render_field form.first_name class="form-control" placeholder='First Name' %}
         </div>
         <div class="suku">
-        {{form.last_name}}
+        {% render_field form.last_name class="form-control" placeholder='Last Name' %}
         </div>
-        {{form.password1}}
-        {{form.password2}}
-        <!--{{form.as_table}}-->
+        {% render_field form.password1 class="form-control" placeholder='Password' %}
+        {% render_field form.password2 class="form-control" placeholder='Confirm Password' %}
         <tr>
             <td>
                 <button type='submit' style='width: 100%' class='btn btn-success'>Register</button>
