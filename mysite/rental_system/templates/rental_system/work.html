@@ -14,7 +14,7 @@
     <p>{{ work.desc }}</p>
     {% if user.is_authenticated %}
     {% if not rented %}
-    <a href="{% url 'rent_work' work.id %}">Rent</a>
+    <td><a href="{% url 'rent_work' work.id %}" class="btn btn-primary">Rent</a></td>
     {% else %}
     <p>Rented</p>
     {% endif %}
