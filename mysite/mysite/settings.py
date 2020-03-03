@@ -25,7 +25,7 @@ SECRET_KEY = '8o+=8y#71kc=*1mz1l-q%zo+_7%h!aeg3u52$i6qe0$85dtue2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['23.102.48.145', '65.52.68.76', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['23.102.48.145', '65.52.68.76', 'localhost', '127.0.0.1' '192.168.1.100']
 
 
 # Application definition
@@ -123,3 +123,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 CRISPY_TEMPLATE_PACK='bootstrap'
+
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
