@@ -4,7 +4,7 @@ from django.contrib import admin
 from .models import Creator, Type, Work, Genre, Publisher, RentedWork
 
 class RentedWorkAdmin(admin.ModelAdmin):
-    list_display = ('user', 'rented_work', 'rent_date', 'return_date', 'returned')
+    list_display = ('user', 'rented_work', 'rent_date', 'return_date', 'date_returned', 'returned')
     search_fields = ['rented_work__title', 'user__username']
     list_filter = ['rented_work__type', 'returned']
 

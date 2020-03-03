@@ -13,11 +13,11 @@ from django.core.exceptions import EmptyResultSet
 from django.core import serializers
 
 def index(request):
-    works = Work.objects.all()
+    works = Work.objects.order_by('-pub_date').all()
     types = Type.objects.all()
     genres = Genre.objects.all()
     if not request.GET.get('search'):
-        paginator = Paginator(works, 2)
+        paginator = Paginator(works, 10)
 
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
@@ -74,6 +74,7 @@ def return_work(request, work_id):
     current_user = request.user
     work = RentedWork.objects.get(user_id = current_user.id, rented_work_id = work_id, returned = False)
     work.returned = True
+    work.date_returned = timezone.now()
     work.save()
     return redirect('rented')
 

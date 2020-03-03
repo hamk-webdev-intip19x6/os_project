@@ -42,6 +42,7 @@ class RentedWork(models.Model):
     rent_date = models.DateTimeField(auto_now_add=True)
     return_date = models.DateTimeField()
     returned = models.BooleanField(default=False)
+    date_returned = models.DateTimeField(null=True)
 
     def __str__(self):
         return self.user.username + " " + self.rented_work.title
