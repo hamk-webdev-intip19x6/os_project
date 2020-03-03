@@ -1,0 +1,17 @@
+/*mobile.css*/
+
+    @media(max-width:800px) {
+        .pc  {
+        display: none;
+        }
+
+        .mobile-navbar {
+            margin-bottom: 20px;
+        }
+    }
+
+    @media(min-width:801px) {
+        .mobile-navbar {
+        display: none;   
+        }
+    }

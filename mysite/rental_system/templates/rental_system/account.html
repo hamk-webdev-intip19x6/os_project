@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'darkmode.css' %}">
+
+<div class="container">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+            <h4>Account details</h4>
+            <p>Username: {{ user.username }} </p>
+            <p>Email: {{ user.email }} </p>
+            <hr>
+            <h4>Extras</h4>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="DarkTheme">
+                <label class="custom-control-label" for="DarkTheme">Dark Theme</label>
+            </div>
+            <hr>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'darkmode.js' %}"></script>  
+{% endblock %}

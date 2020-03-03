@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
 {% load tz %}
+<link rel="stylesheet" href="{% static 'darkmode.css' %}">
+<!-- call empty tag to apply dark theme-->
+<input type="null" class="custom-control-input" id="DarkTheme">
 {% if rented %}
 <div class="container">
     <div class="table-responsive-lg">
@@ -34,4 +38,6 @@
 {% else %}
 <tr><td>You haven't rented anything!</td></tr>
 {% endif %}
+
+<script src="{% static 'darkmode.js' %}"></script>  
 {% endblock %}

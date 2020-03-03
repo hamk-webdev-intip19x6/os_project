@@ -58,6 +58,12 @@ def rented(request):
     
     return render(request, 'rental_system/rented.html', {'rented': rented})
 
+@login_required
+def account(request):
+    current_user = request.user
+    #account = list(RentedWork.objects.filter(user_id = current_user.id, returned = False))
+    return render(request, 'rental_system/account.html', {'account': account})
+
 def search(query=None):
     queryset = []
     queries = query.split(" ") #
