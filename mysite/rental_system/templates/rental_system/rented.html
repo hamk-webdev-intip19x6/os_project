@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
+<link rel="stylesheet" href="{% static 'rented.css' %}">
 {% load tz %}
-<link rel="stylesheet" href="{% static 'darkmode.css' %}">
+{% get_current_timezone as TIME_ZONE %}
 <!-- call empty tag to apply dark theme-->
 <input type="null" class="custom-control-input" id="DarkTheme">
 {% if rented %}
@@ -24,10 +25,12 @@
                 {% for item in rented %}
                 {% if not item.returned %}
                 <tr>
+                    {% timezone "Europe/Helsinki" %}
                     <td>{{ item.rented_work }}</td>
-                    <td>{{ item.rent_date | localtime }}</td>
-                    <td>{{ item.return_date | localtime }}</td>
+                    <td>{{ item.rent_date | date:"n.j.Y, G.i"}}</td>
+                    <td>{{ item.rent_date | date:"n.j.Y, G.i"}}</td>
                     <td><a href="{% url 'return_work' item.rented_work.id %}" class="p-2 mb-2 bg-primary text-white">Return</a></td>
+                    {% endtimezone %}
                 </tr>
                 {% endif %}
                 {% endfor %}

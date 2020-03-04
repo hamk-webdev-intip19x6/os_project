@@ -16,6 +16,7 @@ def index(request):
     works = Work.objects.order_by('-pub_date').all()
     types = Type.objects.all()
     genres = Genre.objects.all()
+
     if not request.GET.get('search'):
         paginator = Paginator(works, 10)
 

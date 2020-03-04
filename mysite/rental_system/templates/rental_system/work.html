@@ -22,21 +22,22 @@
     <p>Login to rent</p>
     {% endif %}
     {% if other_works %}
-    <div class="container-fluid">
-        <h3>Works by same Creator(s)</h3>
-        {% for other in other_works %}
-        <div class="card">
-            <div class="card-body">
-                <a href="work/1">
-                    <h5 class="card-title"><a href="{% url 'work' other.id %}">{{ other }}</a></h5>
-                </a>
-                <p class="card-text"><small class="text-muted">{{ other.creators.all|join:", " }}</small></p>
-            </div>
+    <hr>
+    <h3>Works by same Creator(s)</h3>
+    <br>
+    {% for other in other_works %}
+    <div class="card">
+        <div class="card-body">
+            <a href="work/1">
+                <h5 class="card-title"><a href="{% url 'work' other.id %}">{{ other }}</a></h5>
+            </a>
+            <p class="card-text"><small class="text-muted">{{ other.creators.all|join:", " }}</small></p>
         </div>
-        {% endfor %}
     </div>
+    <br>
+    {% endfor %}
     {% endif %}
 </div>
 
-<script src="{% static 'darkmode.js' %}"></script>  
+<script src="{% static 'darkmode.js' %}"></script>
 {% endblock %}
