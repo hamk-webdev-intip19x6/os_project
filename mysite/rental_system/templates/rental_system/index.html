@@ -80,7 +80,7 @@
         {% endif %}
         <!--works-->
         {% if works %}
-        <div class="col-lg-10 col-12 overflow-auto">
+        <div class="col-md-10 col-12">
             {% for work in works %}
             {% if query in work.title.casefold or query in work.desc or query in work.creators.all|join:", " or query in work.genres.all|join:", "  %}
             <div class="card">
@@ -92,13 +92,11 @@
                     <p class="card-text"><small class="text-muted">{{ work.creators.all|join:", " }}</small></p>
                     <p class="card-text">{{ work.desc }}</p>
                 </div>
-            </div>
             <br>
             {% endif %}
             {% endfor %}
 
             {% if not query %}
-            <div class="col-10">
                 {% for work in works %}
                 <div class="card">
                     <div class="card-body">
