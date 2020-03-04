@@ -11,11 +11,13 @@
         {% if types %}
         <div class="col-lg-2 col-12"> 
             <nav id="sidebar">
-                <!--searchbar-->       
+                <!--searchbar-->     
+                <div class="searchbar">
                 <form name="searchform" method="GET">
                     <input type="text" class="form-control" name="search" id="search" placeholder="Search" minlength="3"
                         autocomplete="off" required>
                 </form>
+                </div>  
                 <br> 
 
 
@@ -24,12 +26,18 @@
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     </button>
+                    <div class="mobile-searchbar">
+                        <form name="searchform" method="GET">
+                            <input type="text" class="form-control" name="search" id="search" placeholder="Search" minlength="3"
+                                autocomplete="off" required>
+                        </form>
+                    </div>  
                 </nav>
-              
-                
+                 
             <div class="collapse" id="navbarToggleExternalContent">
                 <div class="bg-light">        
                     <ul class="nav flex-column">
+                        
                         {% for type in types %}
                         <li>
                             <a href="?search={{ type }}" class="nav-link">{{ type }}</a>

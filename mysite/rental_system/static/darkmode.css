@@ -1,59 +1,59 @@
 /*darkmode.css*/
 
-  [data-theme="dark"] {
-    background-color: #111 !important;
-    color: #eee;
-  }
+[data-theme="dark"] {
+  background-color: #111 !important;
+  color: #eee;
+}
 
-  [data-theme="dark"] .form-control {
-    background-color: #333   !important;
-    border-color:  #444   !important;
-  }
+[data-theme="dark"] .form-control {
+  background-color: #333   !important;
+  border-color:  #444   !important;
+}
 
-  [data-theme="dark"] .card-title {
-    color: #4b78bd   !important;
-  }
+[data-theme="dark"] .card-title {
+  color: #4b78bd   !important;
+}
 
-  [data-theme="dark"] .nav-link {
-    color: #4b78bd   !important;
-  }
+[data-theme="dark"] .nav-link {
+  color: #4b78bd   !important;
+}
 
-  [data-theme="dark"] .navbar-light {
-    background-color: #343a40   !important;
-  }
+[data-theme="dark"] .navbar-light {
+  background-color: #363d46   !important;
+}
 
-  [data-theme="dark"] .bg-light {
-    background-color: #333 !important;
-  }
-  
-  [data-theme="dark"] .card {
-    background-color: #333 !important;
-  }
+[data-theme="dark"] .bg-light {
+  background-color: #333 !important;
+}
 
-  [data-theme="dark"] body {
-    background-color: #333 !important;
-  }
+[data-theme="dark"] .card {
+  background-color: #333 !important;
+}
 
-  [data-theme="dark"] .dropdown-item {
-    color: #eee !important;
-  }
+[data-theme="dark"] body {
+  background-color: #333 !important;
+}
 
-  [data-theme="dark"] .dropdown-item:hover {
-    background-color: #444 !important;
-  }
+[data-theme="dark"] .dropdown-item {
+  color: #eee !important;
+}
 
-  [data-theme="dark"] .dropdown-menu {
-    background-color: #333 !important;
-  }
+[data-theme="dark"] .dropdown-item:hover {
+  background-color: #444 !important;
+}
 
-  [data-theme="dark"] .table {
-    color: #eee !important;
-  }
+[data-theme="dark"] .dropdown-menu {
+  background-color: #333 !important;
+}
 
-  [data-theme="dark"] .bg-white {
-    background-color: #000 !important;
-  }
-  
-  [data-theme="dark"] .bg-black {
-    background-color: #eee !important;
-  }
+[data-theme="dark"] .table {
+  color: #eee !important;
+}
+
+[data-theme="dark"] .bg-white {
+  background-color: #000 !important;
+}
+
+[data-theme="dark"] .bg-black {
+  background-color: #eee !important;
+}
