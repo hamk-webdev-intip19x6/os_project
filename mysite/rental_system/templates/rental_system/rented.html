@@ -27,8 +27,8 @@
                 <tr>
                     {% timezone "Europe/Helsinki" %}
                     <td>{{ item.rented_work }}</td>
-                    <td>{{ item.rent_date | date:"n.j.Y, G.i"}}</td>
-                    <td>{{ item.rent_date | date:"n.j.Y, G.i"}}</td>
+                    <td>{{ item.rent_date | date:"j.n.Y, G.i"}}</td>
+                    <td>{{ item.return_date | date:"j.n.Y, G.i"}}</td>
                     <td><a href="{% url 'return_work' item.rented_work.id %}" class="p-2 mb-2 bg-primary text-white">Return</a></td>
                     {% endtimezone %}
                 </tr>

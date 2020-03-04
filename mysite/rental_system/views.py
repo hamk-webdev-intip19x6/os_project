@@ -18,7 +18,7 @@ def index(request):
     genres = Genre.objects.all()
 
     if not request.GET.get('search'):
-        paginator = Paginator(works, 10)
+        paginator = Paginator(works, 5)
 
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)

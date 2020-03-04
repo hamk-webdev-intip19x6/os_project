@@ -16,7 +16,7 @@
     {% if not rented %}
     <td><a href="{% url 'rent_work' work.id %}" class="btn btn-primary">Rent</a></td>
     {% else %}
-    <p>Rented</p>
+    <td><button class="btn btn-secondary" disabled>Rented</button></td>
     {% endif %}
     {% else %}
     <p>Login to rent</p>
