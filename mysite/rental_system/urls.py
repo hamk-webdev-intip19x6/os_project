@@ -12,6 +12,6 @@ urlpatterns = [
     path('return/<int:work_id>/', views.return_work, name='return_work'),
     path('rent/<int:work_id>/', views.rent_work, name='rent_work'),
     path('test/<int:work_id>/', views.test, name='test'),
-    url('password/', views.change_password, name='change_password')
+    url('password/', views.change_password, name='change_password'),
     path('popular/', views.popular, name='popular')
 ]
