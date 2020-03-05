@@ -35,8 +35,6 @@ def index(request):
     
     posts = sorted(search(query), key=attrgetter('title'), reverse=True)
     context['posts'] = posts
-    
-
     return render(request, 'rental_system/index.html', context)
 
 def work(request, work_id):

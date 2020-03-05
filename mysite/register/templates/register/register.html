@@ -1,5 +1,6 @@
 {% load widget_tweaks %}
 {% block content %}
+{% load static %}
 <head>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
@@ -7,59 +8,14 @@
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'mobile.css' %}">
     <title>Rental System</title>
-    <style>
-        
-       /* form [name='password1'] {
-            margin: auto;
-            background-color: #00FF0C;
-        }*/
-        
-        .container {
-          margin: auto;
-          margin-top: 10%;
-          text-align: center;
-          width: 40%;
-          padding: 1%;
-        }
 
-        .form-group {
-            width: 45%;
-            margin: 0% auto;
-            margin-bottom: 1%;
-        }
-
-        form [type='text'], form [type='password'] {
-            display: block;
-            margin-bottom: 3%;
-        }
-
-        .footer {
-          margin: auto;
-	      text-align: center;
-          max-width: 40%;
-          padding: 1%;
-        }
-
-        .etu {
-            margin-top: 2%;
-            width: 50%;
-            float: left;
-            padding-right: 1%;
-        }
-
-        .suku {
-            margin-top: 2%;
-            width: 50%;
-            float: left;
-            padding-left: 1%;
-        }
-        </style>
 </head>
-<div class ="container">
+<div class ="container container-register">
 <h2>Register a new account</h2>
 <h3 style="color: silver;">It's fast and easy!</h3>
-<form method='POST' class='form-group'>
+<form method='POST' class='form-group form-group-register'>
     {% csrf_token %}
     <table>
         {% render_field form.username class="form-control" placeholder='Username' %}
@@ -72,16 +28,12 @@
         </div>
         {% render_field form.password1 class="form-control" placeholder='Password' %}
         {% render_field form.password2 class="form-control" placeholder='Confirm Password' %}
-        <tr>
-            <td>
-                <button type='submit' style='width: 100%' class='btn btn-success'>Register</button>
-            </td>
-        </tr>
+        <button type='submit' style='width: 100%' class='btn btn-success'>Register</button>
     </table>
 </form>
 </div>
 
-<div class ="footer">
+<div class ="footer footer-register">
     <h5>Already registered?</h5>
     <table>
         <a href="/login">Log in</a>

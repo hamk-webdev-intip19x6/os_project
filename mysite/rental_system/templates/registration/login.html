@@ -1,5 +1,6 @@
 {% load widget_tweaks %}
 {% block content %}
+{% load static %}
 <head>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
@@ -7,23 +8,10 @@
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'mobile.css' %}">
     <title>Rental System</title>
     <style>
-        .container {
-          margin: auto;
-          margin-top: 200px;
-          text-align: center;
-          width: 20%;
-          padding: 10px;
-        }
 
-        .footer {
-          margin: auto;
-          margin-top: 12px;
-	      text-align: center;
-          max-width: 20%;
-          padding: 10px;
-        }
         </style>
 </head>
 
