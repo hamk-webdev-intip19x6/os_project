@@ -27,43 +27,6 @@
             </tbody>
         </table>
     </div>
-    <div id="barchart_values" style="width: 100%; height: 300px;"></div>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        most_popular = {{ data | safe }};
-        google.charts.load("current", { packages: ["corechart"] });
-        google.charts.setOnLoadCallback(drawChart);
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ["Element", "Density", { role: "style" } ],
-                [most_popular[0].rented_work__title, most_popular[0].count, 'red'],
-                [most_popular[1].rented_work__title, most_popular[1].count, 'blue'],
-                [most_popular[2].rented_work__title, most_popular[2].count, 'yellow'],
-                [most_popular[3].rented_work__title, most_popular[3].count, 'brown'],
-                [most_popular[4].rented_work__title, most_popular[4].count, 'pink'],
-            ]);
-
-            var view = new google.visualization.DataView(data);
-            view.setColumns([0, 1,
-                {
-                    calc: "stringify",
-                    sourceColumn: 1,
-                    type: "string",
-                    role: "annotation"
-                },
-                2]);
-
-            var options = {
-                title: "Popular works",
-                width: 600,
-                height: 400,
-                bar: { groupWidth: "95%" },
-                legend: { position: "none" },
-            };
-            var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
-            chart.draw(view, options);
-        }
-    </script>
 </div>
 <script src="{% static 'darkmode.js' %}"></script>
 {% endblock %}
