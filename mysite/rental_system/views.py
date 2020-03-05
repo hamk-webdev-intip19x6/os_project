@@ -11,6 +11,7 @@ from django.core.paginator import Paginator
 from django.core.exceptions import EmptyResultSet
 
 from django.core import serializers
+from django.db.models import Count
 
 def index(request):
     works = Work.objects.order_by('-pub_date').all()

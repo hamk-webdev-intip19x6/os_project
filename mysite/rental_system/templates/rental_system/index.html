@@ -112,28 +112,24 @@
                 <br>
                 {% endfor %}
                 {% endif %}
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        {% if works.has_previous %}
+                      <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                      <li class="page-item"><a class="page-link" href="?page={{ works.previous_page_number }}">Previous</a></li>
+                      {% endif %}
+                      <li class="page-item"><a class="page-link" href="#">Page {{ works.number }} of {{ works.paginator.num_pages }}.</a></li>
+                      {% if works.has_next %}
+                      <li class="page-item"><a class="page-link" href="?page={{ works.next_page_number }}">Next</a></li>
+                      <li class="page-item"><a class="page-link" href="?page={{ works.paginator.num_pages }}">Previous</a></li>
+                      {% endif %}
+                    </ul>
+                  </nav>
             </div>
         </div>
         {% else %}
         <p>No works are available.</p>
         {% endif %}
-    </div>
-    <div class="pagination">
-        <span class="step-links">
-            {% if works.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ works.previous_page_number }}">previous</a>
-            {% endif %}
-
-            <span class="current">
-                Page {{ works.number }} of {{ works.paginator.num_pages }}.
-            </span>
-
-            {% if works.has_next %}
-            <a href="?page={{ works.next_page_number }}">next</a>
-            <a href="?page={{ works.paginator.num_pages }}">last &raquo;</a>
-            {% endif %}
-        </span>
     </div>
 
     <script src="{% static 'darkmode.js' %}"></script>  

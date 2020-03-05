@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
+import datetime
 # Create your models here.
 
 # Writer, Director and so on
@@ -32,7 +34,13 @@ class Work(models.Model):
     publishers = models.ManyToManyField(Publisher)
     title = models.CharField(max_length=200)
     desc = models.CharField(max_length=200)
-    pub_date = models.IntegerField()
+    pub_date = models.IntegerField(
+        default=2020,
+        validators=[
+            MaxValueValidator(datetime.date.today().year),
+            MinValueValidator(1800)
+        ]
+    )
     def __str__(self):
         return self.title
         
