@@ -33,7 +33,7 @@ class Work(models.Model):
     genres = models.ManyToManyField(Genre)
     publishers = models.ManyToManyField(Publisher)
     title = models.CharField(max_length=200)
-    desc = models.CharField(max_length=200)
+    desc = models.CharField(max_length=500)
     pub_date = models.IntegerField(
         default=2020,
         validators=[

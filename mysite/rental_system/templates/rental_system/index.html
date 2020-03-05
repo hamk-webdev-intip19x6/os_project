@@ -82,13 +82,14 @@
         {% if works %}
         <div class="col-md-10 col-12">
             {% for work in works %}
-            {% if query in work.title.casefold or query in work.desc or query in work.creators.all|join:", " or query in work.genres.all|join:", "  %}
+            {% if query in work.title.casefold or query in work.desc or query in work.creators.all|join:", " or query in work.genres.all|join:", "  or query in work.type.type %}
             <div class="card">
                 <div class="card-body">
                     <a href="work/{{ work.id }}">
                         <h5 class="card-title">{{ work.title }}</h5>
                     </a>
                     <p class="card-text"><small class="text-muted">{{ work.genres.all|join:", " }}</small></p>
+                    <p class="card-text"><small class="text-muted">{{ work.type.type }}</small></p>
                     <p class="card-text"><small class="text-muted">{{ work.creators.all|join:", " }}</small></p>
                     <p class="card-text">{{ work.desc }}</p>
                 </div>
@@ -105,6 +106,7 @@
                             <h5 class="card-title">{{ work.title }}</h5>
                         </a>
                         <p class="card-text"><small class="text-muted">{{ work.genres.all|join:", " }}</small></p>
+                        <p class="card-text"><small class="text-muted">{{ work.type.type }}</small></p>
                         <p class="card-text"><small class="text-muted">{{ work.creators.all|join:", " }}</small></p>
                         <p class="card-text">{{ work.desc }}</p>
                     </div>

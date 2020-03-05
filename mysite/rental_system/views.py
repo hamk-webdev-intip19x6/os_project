@@ -120,3 +120,6 @@ def change_password(request):
     return render(request, 'accounts/change_password.html', {
         'form': form
     })
+def popular(request):
+    rented = list(RentedWork.objects.values('rented_work__title').annotate(count=Count('id')).values('count', 'rented_work__title', 'rented_work__id').order_by('-count').filter(count__gt=1)[:5])
+    return render(request, 'rental_system/popular.html', {'data': rented})

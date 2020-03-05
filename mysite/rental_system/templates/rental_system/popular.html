@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'darkmode.css' %}">
+<input type="null" class="custom-control-input" id="DarkTheme">
+<div class="container">
+    <br>
+    <h2>Popular works!</h2>
+    </br>
+    <div class="table-responsive-lg">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Times rented</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if data %}
+                {% for item in data %}
+                <tr>
+                    <td><a href="{% url 'work' item.rented_work__id %}">{{ item.rented_work__title }}</a></td>
+                    <td>{{ item.count }}</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="{% static 'darkmode.js' %}"></script>
+{% endblock %}
