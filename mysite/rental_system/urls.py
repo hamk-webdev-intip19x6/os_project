@@ -9,5 +9,5 @@ urlpatterns = [
     path('account/', views.account, name='account'),
     path('return/<int:work_id>/', views.return_work, name='return_work'),
     path('rent/<int:work_id>/', views.rent_work, name='rent_work'),
-    path('test/<int:work_id>/', views.test, name='test')
+    path('popular/', views.popular, name='popular')
 ]

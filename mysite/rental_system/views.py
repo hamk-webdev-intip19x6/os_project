@@ -96,7 +96,6 @@ def rent_work(request, work_id):
     else:
         return redirect('work', work_id)
 
-def test(request, work_id):
-    rented = RentedWork.objects.all()
-    data = serializers.serialize('json', rented)
-    return render(request, 'rental_system/test.html', {'data': data})
+def popular(request):
+    rented = list(RentedWork.objects.values('rented_work__title').annotate(count=Count('id')).values('count', 'rented_work__title', 'rented_work__id').order_by('-count').filter(count__gt=1)[:5])
+    return render(request, 'rental_system/popular.html', {'data': rented})
