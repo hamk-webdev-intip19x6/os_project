@@ -6,11 +6,19 @@ from django.utils import timezone
 # Create your models here.
 
 # Writer, Director and so on
+
+
 class Creator(models.Model):
-    first_name = models.CharField(max_length=200)
-    last_name = models.CharField(max_length=200)
+    first_name = models.CharField(max_length=200, null=True)
+    last_name = models.CharField(max_length=200, null=True)
+    display_name = models.CharField(max_length=200, default="Display name")
+    use_display_name = models.BooleanField(default=False)
+
     def __str__(self):
-        return self.first_name + " " + self.last_name
+        if (self.use_display_name == True):
+            return self.display_name
+        else:
+            return self.first_name + " " + self.last_name
 
 class Type(models.Model):
     type = models.CharField(max_length=200)
@@ -27,12 +35,12 @@ class Publisher(models.Model):
     def __str__(self):
         return self.publisher
 
-#Movie, Book, Comic and so on
+# Movie, Book, Comic and so on
 class Work(models.Model):
     creators = models.ManyToManyField(Creator)
     type = models.ForeignKey(Type, on_delete=models.CASCADE)
     genres = models.ManyToManyField(Genre)
-    publishers = models.ManyToManyField(Publisher)
+    publishers = models.ManyToManyField(Publisher, null=True, blank=True)
     title = models.CharField(max_length=200)
     desc = models.TextField(max_length=500)
     pub_date = models.IntegerField(

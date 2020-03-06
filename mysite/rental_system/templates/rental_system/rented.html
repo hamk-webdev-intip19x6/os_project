@@ -36,7 +36,7 @@
                     {% else %}
                     <td style="color: #4BB543">Good!</td>
                     {% endif %}
-                    <td><a href="{% url 'return_work' item.rented_work.id %}" class="p-2 mb-2 bg-primary text-white">Return</a></td>
+                    <td><a href="{% url 'return_work' item.rented_work.id %}" class="btn btn-primary">Return</a></td>
                     {% endtimezone %}
                 </tr>
                 {% endif %}
