@@ -87,7 +87,7 @@ def reviews(request):
 @login_required
 def disable_review(request, rating_id):
     current_user = request.user
-    rating = Rating.objects.get(user_id = current_user.id, pk = rating_id)
+    rating = get_object_or_404(Rating, user_id = current_user.id, pk = rating_id)
     rating.visible = False
     rating.save()
     return redirect('reviews')
@@ -95,7 +95,7 @@ def disable_review(request, rating_id):
 @login_required
 def edit_review(request, rating_id):
     user = request.user
-    ratings = Rating.objects.get(user_id = user, pk = rating_id)
+    ratings = get_object_or_404(Rating, user_id = user, pk = rating_id, visible = True)
     form = RatingForm(initial={'comment': ratings.comment, 'rating': ratings.rating})
     if request.method == 'POST':
         form = RatingForm(request.POST)

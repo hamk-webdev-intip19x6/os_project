@@ -30,6 +30,7 @@
         <button id="toggle_reviews" class="btn btn-secondary btn-lg btn-block">Show Reviews</button>
         <br>
         </div>
+        <div id="ratings" style="display: none;">
         {% if user.is_authenticated %}
         {% if not commented %}
         <form method="post">
@@ -41,7 +42,6 @@
         <p>You can edit your reviews <a href="{% url 'reviews' %}">here</a></p>
         {% endif %}
         {% endif %}
-        <div id="ratings" style="display: none;">
             {% if ratings %}
             {% for rating in ratings %}
             {% if rating.visible %}
