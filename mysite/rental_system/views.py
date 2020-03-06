@@ -148,7 +148,7 @@ def return_work(request, work_id):
 def rent_work(request, work_id):
     current_user = request.user
     work = Work.objects.get(pk=work_id)
-    time = timezone.now() + datetime.timedelta(days=0)
+    time = timezone.now() + datetime.timedelta(days=21)
     rentedWorks = RentedWork.objects.all()
     if not rentedWorks.filter(rented_work__id = work_id, returned = False):
         rentedWorks.create(user=current_user, rented_work = work, return_date = time)
