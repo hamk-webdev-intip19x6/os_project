@@ -9,39 +9,60 @@
 <div class="container-fluid">
     <div class="row">
         {% if types %}
-        <div class="col-lg-2 col-12"> 
+        <div class="col-lg-2 col-12">
             <nav id="sidebar">
-                <!--searchbar-->     
+                <!--searchbar-->
                 <div class="searchbar">
-                <form name="searchform" method="GET">
-                    <input type="text" class="form-control" name="search" id="search" placeholder="Search" minlength="3"
-                        autocomplete="off" required>
-                </form>
-                </div>  
-                <br> 
+                    <form name="searchform" method="GET">
+                        <input type="text" class="form-control" name="search" id="search" placeholder="Search"
+                            minlength="3" autocomplete="off" required>
+                    </form>
+                </div>
+                <br>
 
 
-            <div class="mobile-navbar">
-                <nav class="navbar navbar-light" style="background-color: #eee;">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="mobile-searchbar">
-                        <form name="searchform" method="GET">
-                            <input type="text" class="form-control" name="search" id="search" placeholder="Search" minlength="3"
-                                autocomplete="off" required>
-                        </form>
-                    </div>  
-                </nav>
-                 
-            <div class="collapse" id="navbarToggleExternalContent">
-                <div class="bg-light">        
+                <div class="mobile-navbar">
+                    <nav class="navbar navbar-light" style="background-color: #eee;">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="mobile-searchbar">
+                            <form name="searchform" method="GET">
+                                <input type="text" class="form-control" name="search" id="search" placeholder="Search"
+                                    minlength="3" autocomplete="off" required>
+                            </form>
+                        </div>
+                    </nav>
+
+                    <div class="collapse" id="navbarToggleExternalContent">
+                        <div class="bg-light">
+                            <ul class="nav flex-column">
+
+                                {% for type in types %}
+                                <li>
+                                    <a href="?search={{ type }}" class="nav-link">{{ type }}</a>
+                                </li>
+                                {% endfor %}
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                                        aria-haspopup="true" aria-expanded="false">Genres</a>
+                                    <div class="dropdown-menu">
+                                        {% for genre in genres %}
+                                        <a class="dropdown-item" href="?search={{ genre }}">{{ genre }}</a>
+                                        {% endfor %}
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pc">
                     <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'popular' %}">Popular works</a>
-                        </li>
                         {% for type in types %}
-                        <li class="nav-item">
+                        <li>
                             <a href="?search={{ type }}" class="nav-link">{{ type }}</a>
                         </li>
                         {% endfor %}
@@ -56,30 +77,6 @@
                         </li>
                     </ul>
                 </div>
-            </div>
-            </div>  
-       
-            <div class ="pc">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'popular' %}">Popular works</a>
-                    </li>
-                    {% for type in types %}
-                    <li>
-                        <a href="?search={{ type }}" class="nav-link">{{ type }}</a>
-                    </li>
-                    {% endfor %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                            aria-haspopup="true" aria-expanded="false">Genres</a>
-                        <div class="dropdown-menu">
-                            {% for genre in genres %}
-                            <a class="dropdown-item" href="?search={{ genre }}">{{ genre }}</a>
-                            {% endfor %}
-                        </div>
-                    </li>
-                </ul>
-            </div>
             </nav>
         </div>
         {% endif %}
@@ -98,46 +95,51 @@
                     <p class="card-text"><small class="text-muted">{{ work.creators.all|join:", " }}</small></p>
                     <p class="card-text">{{ work.desc }}</p>
                 </div>
-         	</div>
+            </div>
             <br>
             {% endif %}
             {% endfor %}
 
             {% if not query %}
-                {% for work in works %}
-                <div class="card">
-                    <div class="card-body">
-                        <a href="work/{{ work.id }}">
-                            <h5 class="card-title">{{ work.title }}</h5>
-                        </a>
-                        <p class="card-text"><small class="text-muted">{{ work.genres.all|join:", " }}</small></p>
-                        <p class="card-text"><small class="text-muted">{{ work.type.type }}</small></p>
-                        <p class="card-text"><small class="text-muted">{{ work.creators.all|join:", " }}</small></p>
-                        <p class="card-text">{{ work.desc }}</p>
-                    </div>
+            {% for work in works %}
+            <div class="card">
+                <div class="card-body">
+                    <a href="work/{{ work.id }}">
+                        <h5 class="card-title">{{ work.title }}</h5>
+                    </a>
+                    <p class="card-text"><small class="text-muted">{{ work.genres.all|join:", " }}</small></p>
+                    <p class="card-text"><small class="text-muted">{{ work.type.type }}</small></p>
+                    <p class="card-text"><small class="text-muted">{{ work.creators.all|join:", " }}</small></p>
+                    <p class="card-text">{{ work.desc }}</p>
                 </div>
-                <br>
-                {% endfor %}
-                {% endif %}
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        {% if works.has_previous %}
-                      <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
-                      <li class="page-item"><a class="page-link" href="?page={{ works.previous_page_number }}">Previous</a></li>
-                      {% endif %}
-                      <li class="page-item"><a class="page-link" href="#">Page {{ works.number }} of {{ works.paginator.num_pages }}.</a></li>
-                      {% if works.has_next %}
-                      <li class="page-item"><a class="page-link" href="?page={{ works.next_page_number }}">Next</a></li>
-                      <li class="page-item"><a class="page-link" href="?page={{ works.paginator.num_pages }}">Previous</a></li>
-                      {% endif %}
-                    </ul>
-                  </nav>
             </div>
-        </div>
-        {% else %}
-        <p>No works are available.</p>
-        {% endif %}
-    </div>
+            <br>
+            {% endfor %}
+            {% endif %}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {% if works.has_previous %}
+                    <li class="page-item"><a class="page-link"
+                            href="?page={{ works.previous_page_number }}">Previous</a></li>
+                    {% endif %}
+                    {% for i in works.paginator.page_range %}
+                    {% if works.number == i %}
+                    <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if works.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ works.next_page_number }}">Next</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
 
-    <script src="{% static 'darkmode.js' %}"></script>  
-    {% endblock %}
+        </div>
+    </div>
+    {% else %}
+    <p>No works are available.</p>
+    {% endif %}
+</div>
+<script src="{% static 'darkmode.js' %}"></script>
+{% endblock %}
