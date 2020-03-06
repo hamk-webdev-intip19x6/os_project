@@ -37,9 +37,11 @@
             <div class="collapse" id="navbarToggleExternalContent">
                 <div class="bg-light">        
                     <ul class="nav flex-column">
-                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'popular' %}">Popular works</a>
+                        </li>
                         {% for type in types %}
-                        <li>
+                        <li class="nav-item">
                             <a href="?search={{ type }}" class="nav-link">{{ type }}</a>
                         </li>
                         {% endfor %}
@@ -59,6 +61,9 @@
        
             <div class ="pc">
                 <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'popular' %}">Popular works</a>
+                    </li>
                     {% for type in types %}
                     <li>
                         <a href="?search={{ type }}" class="nav-link">{{ type }}</a>

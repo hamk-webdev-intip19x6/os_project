@@ -13,5 +13,8 @@ urlpatterns = [
     path('rent/<int:work_id>/', views.rent_work, name='rent_work'),
     path('test/<int:work_id>/', views.test, name='test'),
     url('password/', views.change_password, name='change_password'),
-    path('popular/', views.popular, name='popular')
+    path('popular/', views.popular, name='popular'),
+    path('reviews/', views.reviews, name='reviews'),
+    path('edit_review/<int:rating_id>/', views.edit_review, name='edit_review'),
+     path('disable_review/<int:rating_id>/', views.disable_review, name='disable_review'),
 ]

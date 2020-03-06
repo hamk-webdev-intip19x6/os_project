@@ -8,8 +8,10 @@
 
 <div class="container">
     <h1>{{ work.title }}</h1>
+    <hr>
     <p>{{ work.type }}</p>
     <p>{{ work.creators.all|join:", " }}</p>
+    <p>{{ work.genres.all|join:"," }}</p>
     <p>{{ work.publishers.all|join:", "}} {{ work.pub_date }}</p>
     <p>{{ work.desc }}</p>
     {% if user.is_authenticated %}
@@ -22,6 +24,30 @@
     <p>Login to rent</p>
     {% endif %}
     {% if other_works %}
+    <hr>
+    <h3>Reviews</h3>
+    {% if user.is_authenticated %}
+    {% if not commented %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+    </form>
+    {% endif %}
+    {% endif %}
+    {% if ratings %}
+    {% for rating in ratings %}
+    {% if rating.visible %}
+    <div class="card w-100">
+        <div class="card-body">
+            <h5 class="card-title">{{ rating.rating }} {{ rating.user.username }}</h5>
+            <p class="card-text">{{ rating.comment }}</p>
+            <p class="card-text"><small class="text-muted">{{ rating.post_date }}</small></p>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
     <hr>
     <h3>Works by same Creator(s)</h3>
     <br>

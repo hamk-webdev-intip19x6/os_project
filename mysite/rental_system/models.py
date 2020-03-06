@@ -33,7 +33,7 @@ class Work(models.Model):
     genres = models.ManyToManyField(Genre)
     publishers = models.ManyToManyField(Publisher)
     title = models.CharField(max_length=200)
-    desc = models.CharField(max_length=500)
+    desc = models.TextField(max_length=500)
     pub_date = models.IntegerField(
         default=2020,
         validators=[
@@ -41,6 +41,7 @@ class Work(models.Model):
             MinValueValidator(1800)
         ]
     )
+
     def __str__(self):
         return self.title
         
@@ -54,3 +55,20 @@ class RentedWork(models.Model):
 
     def __str__(self):
         return self.user.username + " " + self.rented_work.title
+
+class Rating(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    work = models.ForeignKey(Work, on_delete=models.CASCADE)
+    rating = models.IntegerField(
+        default=5,
+        validators=[
+            MaxValueValidator(5),
+            MinValueValidator(0)
+        ]
+    )
+    comment = models.TextField(max_length=500)
+    post_date = models.DateTimeField(auto_now_add=True, null=True)
+    visible = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.user.username + " " + str(self.rating) + " " + self.comment

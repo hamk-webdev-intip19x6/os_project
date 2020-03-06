@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.db.models import Q
 from operator import attrgetter
-from .models import Work, Type, Genre, RentedWork
+from .models import Work, Type, Genre, RentedWork, Rating
 from django.contrib.auth.decorators import login_required
 import datetime
 from django.utils import timezone
@@ -17,11 +17,12 @@ from django.shortcuts import render, redirect
 from django.core import serializers
 from django.db.models import Count
 
+from .forms import RatingForm
+
 def index(request):
     works = Work.objects.order_by('-pub_date').all()
     types = Type.objects.all()
     genres = Genre.objects.all()
-
     if not request.GET.get('search'):
         paginator = Paginator(works, 5)
 
@@ -44,16 +45,66 @@ def index(request):
 
 def work(request, work_id):
     work = get_object_or_404(Work, pk=work_id)
+    ratings = Rating.objects.filter(work_id = work_id).all()
     creators = work.creators.all()
     other_works = list(Work.objects.filter(~Q(id = work_id),creators__in=creators))[:5]
     rented = RentedWork.objects.all()
+
+    form = RatingForm()
 
     if rented.filter(rented_work_id = work_id).exists():
         returned = rented.filter(rented_work_id = work_id, returned=False).order_by('-rent_date').first()
     else:
         returned = False
 
-    return render(request, 'rental_system/work.html', {'work': work, 'rented': returned, 'other_works': other_works})
+    user = request.user
+    if not ratings.filter(user_id = user, work_id = work_id, visible = True):
+        commented = False
+    else:
+        commented = True
+
+    if request.method == 'POST':
+        ratings = Rating.objects.all()
+        if not commented:
+            form = RatingForm(request.POST)
+            if form.is_valid():
+                work = Work.objects.get(pk = work_id)
+                ratings.create(user=user, work=work, rating=form.cleaned_data['rating'], comment=form.cleaned_data['comment'])
+        return redirect('work', work_id)
+
+
+
+    return render(request, 'rental_system/work.html', {'work': work, 'rented': returned, 'other_works': other_works, 'ratings': ratings, 'form':form, 'commented': commented})
+
+@login_required
+def reviews(request):
+    user = request.user
+    ratings = Rating.objects.filter(user_id = user, visible = True).order_by('post_date').all()
+
+    return render(request, 'rental_system/reviews.html', {'comments': ratings})
+
+@login_required
+def disable_review(request, rating_id):
+    current_user = request.user
+    rating = Rating.objects.get(user_id = current_user.id, pk = rating_id)
+    rating.visible = False
+    rating.save()
+    return redirect('reviews')
+
+@login_required
+def edit_review(request, rating_id):
+    user = request.user
+    ratings = Rating.objects.get(user_id = user, pk = rating_id)
+    form = RatingForm(initial={'comment': ratings.comment, 'rating': ratings.rating})
+    if request.method == 'POST':
+        form = RatingForm(request.POST)
+        if form.is_valid():
+            ratings.comment = form.cleaned_data['comment']
+            ratings.rating = form.cleaned_data['rating']
+            ratings.visible = form.cleaned_data['visible']
+            ratings.save()
+        return redirect('reviews')
+    return render(request, 'rental_system/edit_review.html', {'reviews': ratings, 'form':form})
 
 @login_required
 def rented(request):
