@@ -30,7 +30,6 @@
     {% else %}
     <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
     {% endif %}
-    {% if other_works %}
     <hr>
     <div>
         <div>
@@ -66,6 +65,7 @@
         </div>
     </div>
     <hr>
+    {% if other_works %}
     <h3>Works by same Creator(s)</h3>
     <br>
     {% for other in other_works %}
