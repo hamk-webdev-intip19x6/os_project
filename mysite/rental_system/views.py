@@ -56,7 +56,7 @@ def work(request, work_id):
         returned = rented.filter(rented_work_id = work_id, returned=False).order_by('-rent_date').first()
     else:
         returned = False
-        
+
     commented = False
     if not request.user.is_anonymous:
         user = request.user
@@ -102,7 +102,6 @@ def edit_review(request, rating_id):
         if form.is_valid():
             ratings.comment = form.cleaned_data['comment']
             ratings.rating = form.cleaned_data['rating']
-            ratings.visible = form.cleaned_data['visible']
             ratings.save()
         return redirect('reviews')
     return render(request, 'rental_system/edit_review.html', {'reviews': ratings, 'form':form})
