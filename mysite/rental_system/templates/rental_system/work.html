@@ -21,35 +21,42 @@
     <td><button class="btn btn-secondary" disabled>Rented</button></td>
     {% endif %}
     {% else %}
-    <p>Login to rent</p>
+    <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
     {% endif %}
     {% if other_works %}
     <hr>
-    <h3>Reviews</h3>
-    {% if user.is_authenticated %}
-    {% if not commented %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Submit">
-    </form>
-    {% else %}
-    <p>You can edit your reviews <a href="{% url 'reviews' %}">here</a></p>
-    {% endif %}
-    {% endif %}
-    {% if ratings %}
-    {% for rating in ratings %}
-    {% if rating.visible %}
-    <div class="card w-100">
-        <div class="card-body">
-            <h5 class="card-title">{{ rating.rating }} {{ rating.user.username }}</h5>
-            <p class="card-text">{{ rating.comment }}</p>
-            <p class="card-text"><small class="text-muted">{{ rating.post_date }}</small></p>
+    <div>
+        <div>
+        <button id="toggle_reviews" class="btn btn-secondary btn-lg btn-block">Show Reviews</button>
+        <br>
+        </div>
+        {% if user.is_authenticated %}
+        {% if not commented %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit">
+        </form>
+        {% else %}
+        <p>You can edit your reviews <a href="{% url 'reviews' %}">here</a></p>
+        {% endif %}
+        {% endif %}
+        <div id="ratings" style="display: none;">
+            {% if ratings %}
+            {% for rating in ratings %}
+            {% if rating.visible %}
+            <div class="card w-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ rating.rating }} {{ rating.user.username }}</h5>
+                    <p class="card-text">{{ rating.comment }}</p>
+                    <p class="card-text"><small class="text-muted">{{ rating.post_date }}</small></p>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
         </div>
     </div>
-    {% endif %}
-    {% endfor %}
-    {% endif %}
     <hr>
     <h3>Works by same Creator(s)</h3>
     <br>
@@ -68,4 +75,14 @@
 </div>
 
 <script src="{% static 'darkmode.js' %}"></script>
+<script>
+    $("#toggle_reviews").click(function() {
+        $("#ratings").toggle();
+        if ($(this).text() == "Show Reviews") {
+            $(this).html("Hide Reviews");
+        } else {
+            $(this).html("Show Reviews");
+        }
+    });
+</script>
 {% endblock %}
