@@ -56,12 +56,13 @@ def work(request, work_id):
         returned = rented.filter(rented_work_id = work_id, returned=False).order_by('-rent_date').first()
     else:
         returned = False
+        
+    commented = False
+    if not request.user.is_anonymous:
+        user = request.user
+        if ratings.filter(user_id = user, work_id = work_id, visible = True):
+            commented = True
 
-    user = request.user
-    if not ratings.filter(user_id = user, work_id = work_id, visible = True):
-        commented = False
-    else:
-        commented = True
 
     if request.method == 'POST':
         ratings = Rating.objects.all()
