@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div class="container">
+  <h3><a href="{% url 'work' current_work %}">{{ title.title }}</a></h3>
+  <h4>Reviews</h4>
+  <hr>
+{% if reviews %}
+{% for review in reviews %}
+<div class="card w-100">
+    <div class="card-body">
+        <h5 class="card-title">{{ review.rating }} {{ review.user.username }}</h5>
+        <p class="card-text">{{ review.comment }}</p>
+        <p class="card-text"><small class="text-muted">{{ review.post_date }}</small></p>
+    </div>
+</div>
+<br>
+{% endfor %}
+{% else %}
+<p>No reviews for this work!</p>
+{% endif %}
+</div>
+{% endblock %}

@@ -5,8 +5,15 @@
 <link rel="stylesheet" href="{% static 'darkmode.css' %}">
 <!-- call empty tag to apply dark theme-->
 <input type="null" class="custom-control-input" id="DarkTheme">
-
 <div class="container">
+    {% if rented.user == user %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        You have rented this work! You can view it <a href="{% url 'rented' %}">here</a>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endif %}
     <h1>{{ work.title }}</h1>
     <hr>
     <p>{{ work.type }}</p>
@@ -27,21 +34,21 @@
     <hr>
     <div>
         <div>
-        <button id="toggle_reviews" class="btn btn-secondary btn-lg btn-block">Show Reviews</button>
-        <br>
+            <h3>Reviews</h3>
+            <br>
         </div>
-        <div id="ratings" style="display: none;">
-        {% if user.is_authenticated %}
-        {% if not commented %}
-        <form method="post">
-            {% csrf_token %}
-            {{ form }}
-            <input type="submit" value="Submit">
-        </form>
-        {% else %}
-        <p>You can edit your reviews <a href="{% url 'reviews' %}">here</a></p>
-        {% endif %}
-        {% endif %}
+        <div>
+            {% if user.is_authenticated %}
+            {% if not commented %}
+            <form method="post">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Submit">
+            </form>
+            {% else %}
+            <p>You can edit your reviews <a href="{% url 'reviews' %}">here</a></p>
+            {% endif %}
+            {% endif %}
             {% if ratings %}
             {% for rating in ratings %}
             {% if rating.visible %}
@@ -54,6 +61,7 @@
             </div>
             {% endif %}
             {% endfor %}
+            <a href="{% url 'all_reviews' work.id %}">All reviews</a>
             {% endif %}
         </div>
     </div>
@@ -75,14 +83,4 @@
 </div>
 
 <script src="{% static 'darkmode.js' %}"></script>
-<script>
-    $("#toggle_reviews").click(function() {
-        $("#ratings").toggle();
-        if ($(this).text() == "Show Reviews") {
-            $(this).html("Hide Reviews");
-        } else {
-            $(this).html("Show Reviews");
-        }
-    });
-</script>
 {% endblock %}

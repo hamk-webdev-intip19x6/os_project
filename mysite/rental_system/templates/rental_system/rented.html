@@ -19,6 +19,7 @@
                     <th>Title</th>
                     <th>Rent date</th>
                     <th>Return date</th>
+                    <th>Status</th>
                     <th>Return</th>
                 </tr>
             </thead>
@@ -27,9 +28,14 @@
                 {% if not item.returned %}
                 <tr>
                     {% timezone "Europe/Helsinki" %}
-                    <td>{{ item.rented_work }}</td>
+                    <td><a href="{% url 'work' item.rented_work.id %}">{{ item.rented_work }}</a></td>
                     <td>{{ item.rent_date | date:"j.n.Y, G.i"}}</td>
                     <td>{{ item.return_date | date:"j.n.Y, G.i"}}</td>
+                    {% if item.is_late %}
+                    <td style="color: red;">Late!</td>
+                    {% else %}
+                    <td style="color: #4BB543">Good!</td>
+                    {% endif %}
                     <td><a href="{% url 'return_work' item.rented_work.id %}" class="p-2 mb-2 bg-primary text-white">Return</a></td>
                     {% endtimezone %}
                 </tr>

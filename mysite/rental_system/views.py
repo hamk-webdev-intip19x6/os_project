@@ -45,7 +45,7 @@ def index(request):
 
 def work(request, work_id):
     work = get_object_or_404(Work, pk=work_id)
-    ratings = Rating.objects.filter(work_id = work_id).all()
+    ratings = Rating.objects.filter(work_id = work_id, visible = True).order_by('-post_date')
     creators = work.creators.all()
     other_works = list(Work.objects.filter(~Q(id = work_id),creators__in=creators))[:5]
     rented = RentedWork.objects.all()
@@ -75,7 +75,12 @@ def work(request, work_id):
 
 
 
-    return render(request, 'rental_system/work.html', {'work': work, 'rented': returned, 'other_works': other_works, 'ratings': ratings, 'form':form, 'commented': commented})
+    return render(request, 'rental_system/work.html', {'work': work, 'rented': returned, 'other_works': other_works, 'ratings': ratings[:5], 'form':form, 'commented': commented})
+
+def all_reviews(request, work_id):
+    reviews = Rating.objects.filter(work_id = work_id, visible = True)
+    title = Work.objects.filter(pk = work_id).values('title').first()
+    return render(request, 'rental_system/all_reviews.html', {"reviews": reviews, "current_work": work_id, 'title': title})
 
 @login_required
 def reviews(request):
@@ -143,7 +148,7 @@ def return_work(request, work_id):
 def rent_work(request, work_id):
     current_user = request.user
     work = Work.objects.get(pk=work_id)
-    time = timezone.now() + datetime.timedelta(days=30)
+    time = timezone.now() + datetime.timedelta(days=0)
     rentedWorks = RentedWork.objects.all()
     if not rentedWorks.filter(rented_work__id = work_id, returned = False):
         rentedWorks.create(user=current_user, rented_work = work, return_date = time)

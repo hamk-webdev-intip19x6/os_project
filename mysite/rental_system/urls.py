@@ -16,5 +16,6 @@ urlpatterns = [
     path('popular/', views.popular, name='popular'),
     path('reviews/', views.reviews, name='reviews'),
     path('edit_review/<int:rating_id>/', views.edit_review, name='edit_review'),
-     path('disable_review/<int:rating_id>/', views.disable_review, name='disable_review'),
+    path('disable_review/<int:rating_id>/', views.disable_review, name='disable_review'),
+    path('all_reviews/<int:work_id>/', views.all_reviews, name="all_reviews")
 ]

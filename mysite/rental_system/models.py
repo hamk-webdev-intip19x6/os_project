@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 import datetime
+from django.utils import timezone
 # Create your models here.
 
 # Writer, Director and so on
@@ -55,6 +56,9 @@ class RentedWork(models.Model):
 
     def __str__(self):
         return self.user.username + " " + self.rented_work.title
+    @property
+    def is_late(self):
+        return timezone.now() > self.return_date
 
 class Rating(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
