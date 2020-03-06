@@ -80,7 +80,14 @@ class Rating(models.Model):
     )
     comment = models.TextField(max_length=500)
     post_date = models.DateTimeField(auto_now_add=True, null=True)
+    edit_date = models.DateTimeField(blank=True, null=True)
     visible = models.BooleanField(default=True)
+
+    def edited(self):
+        if not self.edit_date:
+            return self.post_date
+        else:
+            return self.edit_date
 
     def __str__(self):
         return self.user.username + " " + str(self.rating) + " " + self.comment

@@ -107,6 +107,7 @@ def edit_review(request, rating_id):
         if form.is_valid():
             ratings.comment = form.cleaned_data['comment']
             ratings.rating = form.cleaned_data['rating']
+            ratings.edit_date = timezone.now()
             ratings.save()
         return redirect('reviews')
     return render(request, 'rental_system/edit_review.html', {'reviews': ratings, 'form':form})

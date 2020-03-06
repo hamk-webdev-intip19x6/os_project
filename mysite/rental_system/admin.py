@@ -14,8 +14,8 @@ class WorkAdmin(admin.ModelAdmin):
     search_fields = ['title']
     
 class CreatorAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name')
-    search_fields = ['first_name', 'last_name']
+    list_display = ('first_name', 'last_name', 'display_name', 'use_display_name')
+    search_fields = ['first_name', 'last_name', 'display_name']
 
 class RatingsAdmin(admin.ModelAdmin):
     list_display = ('id','work', 'user', 'post_date', 'visible')
