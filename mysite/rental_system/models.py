@@ -44,6 +44,7 @@ class Work(models.Model):
     publishers = models.ManyToManyField(Publisher, null=True, blank=True)
     title = models.CharField(max_length=200)
     desc = models.TextField(max_length=500)
+    trailer = models.URLField(blank=True)
     pub_date = models.IntegerField(
         default=2020,
         validators=[

@@ -8,36 +8,54 @@
 <!-- call empty tag to apply dark theme-->
 <input type="null" class="custom-control-input" id="DarkTheme">
 <div class="container">
-    {% if rented.user == user %}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        You have rented this work! You can view it <a href="{% url 'rented' %}">here</a>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+    <div>
+        {% if rented.user == user %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            You have rented this work! You can view it <a href="{% url 'rented' %}">here</a>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %}
+        <div class="row" id="header">
+            <div class="col-12 col-md-4">
+                <img alt="Kuva tähän!" src="" class="w-100 img-responsive">
+            </div>
+            <div class="col-12 col-md-8">
+                <h1>{{ work.title }}</h1>
+                {% if work.rating %}
+                <p>Rating <strong>{{ work.rating }}</strong> <label for="5-stars" class="star"
+                        style="color: #f80;">&#9733;</label></p>
+                {% else %}
+                <p>No rating</p>
+                {% endif %}
+                <hr>
+                <p>{{ work.type }}</p>
+                <p>{{ work.creators.all |join:", " }}</p>
+                <p>{{ work.genres.all|join:"," }}</p>
+                <p>{{ work.publishers.all|join:", "}} {{ work.pub_date }}</p>
+                <p>{{ work.desc }}</p>
+                {% if user.is_authenticated %}
+                {% if work.available %}
+                <td><a href="{% url 'rent_work' work.id %}" class="btn btn-primary">Rent</a></td>
+                {% else %}
+                <td><button class="btn btn-secondary" disabled>Rented</button></td>
+                {% endif %}
+                {% else %}
+                <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
+                {% endif %}
+         </div>
+        </div>
+        <hr>
+        {% if work.trailer %}
+        <div id="video">
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="{{ work.trailer }}"></iframe>
+          </div>
+        <hr>
+        </div>
+        {% endif %}
     </div>
-    {% endif %}
-    <h1>{{ work.title }}</h1>
-    {% if work.rating %}
-    <p>Rating <strong>{{ work.rating }}</strong> <label for="5-stars" class="star" style="color: #f80;">&#9733;</label></p>
-    {% else %}
-    <p>No rating</p>
-    {% endif %}
-    <hr>
-    <p>{{ work.type }}</p>
-    <p>{{ work.creators.all |join:", " }}</p>
-    <p>{{ work.genres.all|join:"," }}</p>
-    <p>{{ work.publishers.all|join:", "}} {{ work.pub_date }}</p>
-    <p>{{ work.desc }}</p>
-    {% if user.is_authenticated %}
-    {% if work.available %}
-    <td><a href="{% url 'rent_work' work.id %}" class="btn btn-primary">Rent</a></td>
-    {% else %}
-    <td><button class="btn btn-secondary" disabled>Rented</button></td>
-    {% endif %}
-    {% else %}
-    <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
-    {% endif %}
-    <hr>
     <div>
         <div>
             <h3>Submit a review</h3>
@@ -47,28 +65,28 @@
             {% if user.is_authenticated %}
             {% if not commented %}
             <div>
-            <form method="post">
-                {% csrf_token %}
-                {% render_field form.comment class="form-control" placeholder='Comment' minlength='3' %}
-                <div class="star-rating">
-                    <input type="radio" id="5-stars" name="rating" value="5" />
-                    <label for="5-stars" class="star">&#9733;</label>
-                    <input type="radio" id="4-stars" name="rating" value="4" />
-                    <label for="4-stars" class="star">&#9733;</label>
-                    <input type="radio" id="3-stars" name="rating" value="3" />
-                    <label for="3-stars" class="star">&#9733;</label>
-                    <input type="radio" id="2-stars" name="rating" value="2" />
-                    <label for="2-stars" class="star">&#9733;</label>
-                    <input type="radio" id="1-star" name="rating" value="1" />
-                    <label for="1-star" class="star">&#9733;</label>
-                </div>
-                <input type="submit" class="btn btn-primary" value="Submit review">
-            </form>
-            {% else %}
-            <p>You can edit your reviews <a href="{% url 'reviews' %}">here</a></p>
-            {% endif %}
-            {% endif %}
-            <hr>
+                <form method="post">
+                    {% csrf_token %}
+                    {% render_field form.comment class="form-control" placeholder='Comment' minlength='3' %}
+                    <div class="star-rating">
+                        <input type="radio" id="5-stars" name="rating" value="5" />
+                        <label for="5-stars" class="star">&#9733;</label>
+                        <input type="radio" id="4-stars" name="rating" value="4" />
+                        <label for="4-stars" class="star">&#9733;</label>
+                        <input type="radio" id="3-stars" name="rating" value="3" />
+                        <label for="3-stars" class="star">&#9733;</label>
+                        <input type="radio" id="2-stars" name="rating" value="2" />
+                        <label for="2-stars" class="star">&#9733;</label>
+                        <input type="radio" id="1-star" name="rating" value="1" />
+                        <label for="1-star" class="star">&#9733;</label>
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Submit review">
+                </form>
+                {% else %}
+                <p>You can edit your reviews <a href="{% url 'reviews' %}">here</a></p>
+                {% endif %}
+                {% endif %}
+                <hr>
             </div>
             {% if ratings %}
             {% for rating in ratings %}
@@ -78,10 +96,10 @@
                     <h5 class="card-title">{{ rating.rating }} {{ rating.user.username }}</h5>
                     <p class="card-text">{{ rating.comment }}</p>
                     <p class="card-text"><small class="text-muted">Posted at {{ rating.post_date}}
-                    {% if rating.edited %}
-                    (edited)
-                    {% endif %}
-                </small></p>
+                            {% if rating.edited %}
+                            (edited)
+                            {% endif %}
+                        </small></p>
                 </div>
             </div>
             <br>
@@ -90,28 +108,28 @@
             <a href="{% url 'all_reviews' work.id %}">All reviews</a>
             {% endif %}
         </div>
-    <div>
-    <hr>
-    {% if other_works %}
-    <h3>More from same creators</h3>
-    <br>
-    <div class="card-deck">
-        {% for other in other_works %}
-        <div class="card">
-            <div class="card-body">
-                <a href="work/1">
-                    <h5 class="card-title"><a href="{% url 'work' other.id %}">{{ other }}</a></h5>
-                </a>
-                <p class="card-text"><small class="text-muted">{{ other.creators.all|join:", " }}</small></p>
+        <div>
+            <hr>
+            {% if other_works %}
+            <h3>More from same creators</h3>
+            <br>
+            <div class="card-deck">
+                {% for other in other_works %}
+                <div class="card">
+                    <div class="card-body">
+                        <a href="work/1">
+                            <h5 class="card-title"><a href="{% url 'work' other.id %}">{{ other }}</a></h5>
+                        </a>
+                        <p class="card-text"><small class="text-muted">{{ other.creators.all|join:", " }}</small></p>
+                    </div>
+                </div>
+                <br>
+                {% endfor %}
             </div>
+            {% endif %}
+            <br>
         </div>
-        <br>
-        {% endfor %}
     </div>
-    {% endif %}
-    <br>
-</div>
-</div>
 </div>
 
 <script src="{% static 'darkmode.js' %}"></script>
