@@ -39,9 +39,11 @@
                     <div class="collapse" id="navbarToggleExternalContent">
                         <div class="bg-light">
                             <ul class="nav flex-column">
-
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'popular' %}">Popular works</a>
+                                </li>
                                 {% for type in types %}
-                                <li>
+                                <li class="nav-item">
                                     <a href="?search={{ type }}" class="nav-link">{{ type }}</a>
                                 </li>
                                 {% endfor %}
@@ -61,8 +63,11 @@
 
                 <div class="pc">
                     <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'popular' %}">Popular works</a>
+                        </li>
                         {% for type in types %}
-                        <li>
+                        <li class="nav-item">
                             <a href="?search={{ type }}" class="nav-link">{{ type }}</a>
                         </li>
                         {% endfor %}
@@ -82,7 +87,7 @@
         {% endif %}
         <!--works-->
         {% if works %}
-        <div class="col-md-10 col-12">
+        <div class="col-lg-10 col-12">
             {% for work in works %}
             {% if query in work.title.casefold or query in work.desc or query in work.creators.all|join:", " or query in work.genres.all|join:", "  or query in work.type.type %}
             <div class="card">
