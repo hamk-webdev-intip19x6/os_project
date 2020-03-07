@@ -2,6 +2,8 @@
 {% block content %}
 {% load static %}
 <div class="container">
+  <h3>Your reviews</h3>
+  <hr>
   {% if comments %}
   {% for comment in comments %}
   <div class="card w-100">
@@ -10,10 +12,11 @@
       <h5 class="card-title">{{ comment.rating }} {{ comment.user.username }}</h5>
       <p class="card-text">{{ comment.comment }}</p>
       <p class="card-text"><small class="text-muted">{{ comment.edited }}</small></p>
-      <a href="{% url 'edit_review' comment.id %}">Edit</a>
-      <a href="{% url 'disable_review' comment.id %}">Delete</a>
+      <a class="btn btn-primary" href="{% url 'edit_review' comment.id %}">Edit</a>
+      <a class="btn btn-outline-danger" href="{% url 'disable_review' comment.id %}">Delete</a>
     </div>
   </div>
+  <br>
   {% endfor %}
   {% else %}
   <p>You havent reviewed anything!</p>
