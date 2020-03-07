@@ -29,7 +29,7 @@
     <p>{{ work.publishers.all|join:", "}} {{ work.pub_date }}</p>
     <p>{{ work.desc }}</p>
     {% if user.is_authenticated %}
-    {% if work.rented %}
+    {% if work.available %}
     <td><a href="{% url 'rent_work' work.id %}" class="btn btn-primary">Rent</a></td>
     {% else %}
     <td><button class="btn btn-secondary" disabled>Rented</button></td>
