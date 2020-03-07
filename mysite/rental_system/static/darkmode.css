@@ -58,3 +58,9 @@
   background-color: #eee !important;
 }
 
+[data-theme="dark"] .page-link {
+  border: 1px solid #444;
+  background-color: #333 !important;
+}
+
+

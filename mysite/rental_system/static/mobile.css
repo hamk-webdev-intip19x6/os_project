@@ -50,6 +50,11 @@
         margin-bottom: 1%;
     }
 
+    .form-group-changepass{
+      margin: 0% auto;
+      margin-bottom: 1%;
+    }
+
     form [type='text'], form [type='password'] {
         display: block;
         margin-bottom: 3%;
@@ -111,6 +116,12 @@
         width: 45%;
         margin: 0% auto;
         margin-bottom: 1%;
+    }
+
+    .form-group-changepass{
+      width: 25%;
+      margin: 0% auto;
+      margin-bottom: 1%;
     }
 
     form [type='text'], form [type='password'] {
