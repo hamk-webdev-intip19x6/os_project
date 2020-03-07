@@ -9,7 +9,7 @@ class RentedWorkAdmin(admin.ModelAdmin):
     list_filter = ['rented_work__type', 'returned']
 
 class WorkAdmin(admin.ModelAdmin):
-    list_display = ('title', 'desc', 'type', 'pub_date',)
+    list_display = ('title', 'desc', 'type', 'pub_date', 'available','rating')
     list_filter = ['pub_date', 'type', 'publishers__publisher', 'genres__genre']
     search_fields = ['title']
     

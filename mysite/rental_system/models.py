@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 import datetime
 from django.utils import timezone
+from django.db.models import Avg
 # Create your models here.
 
 # Writer, Director and so on
@@ -53,6 +54,21 @@ class Work(models.Model):
 
     def __str__(self):
         return self.title
+
+    def available(self):
+        rented = RentedWork.objects.filter(rented_work_id = self.id, returned=False).order_by('-rent_date').first()
+        if rented:
+            return False
+        else:
+            return True
+    
+    def rating(self):
+        rating = Rating.objects.filter(work_id = self.id, visible = True).aggregate(Avg('rating'))
+        if not rating['rating__avg']:
+            rating = 0
+        else:
+            rating = round(rating['rating__avg'], 1)
+        return rating
         
 class RentedWork(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
@@ -82,12 +98,11 @@ class Rating(models.Model):
     post_date = models.DateTimeField(auto_now_add=True, null=True)
     edit_date = models.DateTimeField(blank=True, null=True)
     visible = models.BooleanField(default=True)
-
     def edited(self):
         if not self.edit_date:
-            return self.post_date
+            return False
         else:
-            return self.edit_date
+            return True
 
     def __str__(self):
         return self.user.username + " " + str(self.rating) + " " + self.comment

@@ -95,9 +95,15 @@
                     <a href="work/{{ work.id }}">
                         <h5 class="card-title">{{ work.title }}</h5>
                     </a>
-                    <p class="card-text"><small class="text-muted">{{ work.genres.all|join:", " }}</small></p>
-                    <p class="card-text"><small class="text-muted">{{ work.type.type }}</small></p>
                     <p class="card-text"><small class="text-muted">{{ work.creators.all|join:", " }}</small></p>
+                    <p class="card-text">{{ work.type.type }}:
+                    {% if work.available %}
+                    
+                    <span class="text-success">Available</span>
+                    {% else %}
+                    <span class="text-danger">Rented</span>
+                    {% endif %}
+                    </p>
                     <p class="card-text">{{ work.desc }}</p>
                 </div>
             </div>
@@ -109,12 +115,25 @@
             {% for work in works %}
             <div class="card">
                 <div class="card-body">
+                    <h5 class="card-title">
                     <a href="work/{{ work.id }}">
-                        <h5 class="card-title">{{ work.title }}</h5>
+                        {{ work.title }}
                     </a>
-                    <p class="card-text"><small class="text-muted">{{ work.genres.all|join:", " }}</small></p>
-                    <p class="card-text"><small class="text-muted">{{ work.type.type }}</small></p>
+                    {% if work.rating %}
+                    <small><span>{{ work.rating }} <label style="color:#f80;">&#9733;</label></span></small>
+                    {% else %}
+                    <small><span>No rating</span></small>
+                    {% endif %}
+                    </h5>
                     <p class="card-text"><small class="text-muted">{{ work.creators.all|join:", " }}</small></p>
+                    <p class="card-text">{{ work.type.type }}:
+                    {% if work.available %}
+                    
+                    <span class="text-success">Available</span>
+                    {% else %}
+                    <span class="text-danger">Rented</span>
+                    {% endif %}
+                    </p>
                     <p class="card-text">{{ work.desc }}</p>
                 </div>
             </div>
