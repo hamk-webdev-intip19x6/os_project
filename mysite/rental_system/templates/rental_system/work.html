@@ -12,13 +12,15 @@
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         You have rented this work! You can view it <a href="{% url 'rented' %}">here</a>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+            <span aria-hidden="true">&times;</span>
         </button>
-      </div>
+    </div>
     {% endif %}
     <h1>{{ work.title }}</h1>
-    {% if avarage.rating__avg %}
-    <p>Rating {{ avarage.rating__avg | floatformat }}</p>
+    {% if avarage %}
+    <p>Rating <strong>{{ avarage }}</strong></p>
+    {% else %}
+    <p>No reviews</p>
     {% endif %}
     <hr>
     <p>{{ work.type }}</p>
@@ -45,8 +47,8 @@
             {% if user.is_authenticated %}
             {% if not commented %}
             <form method="post">
-                {% csrf_token %}        
-                {% render_field form.comment class="form-control" placeholder='Comment' minlength='3' %}         
+                {% csrf_token %}
+                {% render_field form.comment class="form-control" placeholder='Comment' minlength='3' %}
                 <div class="star-rating">
                     <input type="radio" id="5-stars" name="rating" value="5" />
                     <label for="5-stars" class="star">&#9733;</label>

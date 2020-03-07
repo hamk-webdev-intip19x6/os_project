@@ -51,6 +51,12 @@ def work(request, work_id):
     other_works = list(Work.objects.filter(~Q(id = work_id),creators__in=creators))[:5]
     rented = RentedWork.objects.all()
     avarage = Rating.objects.filter(work_id = work_id, visible = True).aggregate(Avg('rating'))
+
+    if avarage['rating__avg']:
+        avarage = round(avarage['rating__avg'], 1)
+    else:
+        avarage = 0
+
     form = RatingForm()
 
     if rented.filter(rented_work_id = work_id).exists():
