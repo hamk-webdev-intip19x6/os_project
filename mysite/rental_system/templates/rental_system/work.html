@@ -18,7 +18,7 @@
     {% endif %}
     <h1>{{ work.title }}</h1>
     {% if avarage %}
-    <p>Rating <strong>{{ avarage }}</strong></p>
+    <p>Rating <strong>{{ avarage }}</strong> <label for="5-stars" class="star" style="color: #f80;">&#9733;</label></p>
     {% else %}
     <p>No reviews</p>
     {% endif %}
@@ -46,6 +46,7 @@
         <div>
             {% if user.is_authenticated %}
             {% if not commented %}
+            <div>
             <form method="post">
                 {% csrf_token %}
                 {% render_field form.comment class="form-control" placeholder='Comment' minlength='3' %}
@@ -67,6 +68,8 @@
             <p>You can edit your reviews <a href="{% url 'reviews' %}">here</a></p>
             {% endif %}
             {% endif %}
+            <hr>
+            </div>
             {% if ratings %}
             {% for rating in ratings %}
             {% if rating.visible %}
@@ -86,20 +89,23 @@
     </div>
     <hr>
     {% if other_works %}
-    <h3>Works by same Creator(s)</h3>
+    <h3>More from same creators</h3>
     <br>
-    {% for other in other_works %}
-    <div class="card">
-        <div class="card-body">
-            <a href="work/1">
-                <h5 class="card-title"><a href="{% url 'work' other.id %}">{{ other }}</a></h5>
-            </a>
-            <p class="card-text"><small class="text-muted">{{ other.creators.all|join:", " }}</small></p>
+    <div class="card-deck">
+        {% for other in other_works %}
+        <div class="card">
+            <div class="card-body">
+                <a href="work/1">
+                    <h5 class="card-title"><a href="{% url 'work' other.id %}">{{ other }}</a></h5>
+                </a>
+                <p class="card-text"><small class="text-muted">{{ other.creators.all|join:", " }}</small></p>
+            </div>
         </div>
+        <br>
+        {% endfor %}
     </div>
-    <br>
-    {% endfor %}
     {% endif %}
+    <br>
 </div>
 
 <script src="{% static 'darkmode.js' %}"></script>

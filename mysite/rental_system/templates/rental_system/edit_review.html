@@ -9,7 +9,7 @@
     <form method="post">
         {% csrf_token %}
 
-        {% render_field form.comment class="form-control" placeholder='Comment' minlength='3' %}         
+        {% render_field form.comment class="form-control" placeholder='Comment' minlength='3' %}
         <div class="star-rating">
             <input type="radio" id="5-stars" name="rating" value="5" />
             <label for="5-stars" class="star">&#9733;</label>
