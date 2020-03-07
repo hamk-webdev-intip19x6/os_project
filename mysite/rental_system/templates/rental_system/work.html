@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
+{% load widget_tweaks %}
 
 <link rel="stylesheet" href="{% static 'darkmode.css' %}">
+<link rel="stylesheet" href="{% static 'rating.css' %}">
 <!-- call empty tag to apply dark theme-->
 <input type="null" class="custom-control-input" id="DarkTheme">
 <div class="container">
@@ -33,16 +35,28 @@
     <hr>
     <div>
         <div>
-            <h3>Reviews</h3>
+            <h3>Submit a review</h3>
             <br>
         </div>
         <div>
             {% if user.is_authenticated %}
             {% if not commented %}
             <form method="post">
-                {% csrf_token %}
-                {{ form }}
-                <input type="submit" value="Submit">
+                {% csrf_token %}        
+                {% render_field form.comment class="form-control" placeholder='Comment' minlength='3' %}         
+                <div class="star-rating">
+                    <input type="radio" id="5-stars" name="rating" value="5" />
+                    <label for="5-stars" class="star">&#9733;</label>
+                    <input type="radio" id="4-stars" name="rating" value="4" />
+                    <label for="4-stars" class="star">&#9733;</label>
+                    <input type="radio" id="3-stars" name="rating" value="3" />
+                    <label for="3-stars" class="star">&#9733;</label>
+                    <input type="radio" id="2-stars" name="rating" value="2" />
+                    <label for="2-stars" class="star">&#9733;</label>
+                    <input type="radio" id="1-star" name="rating" value="1" />
+                    <label for="1-star" class="star">&#9733;</label>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Submit review">
             </form>
             {% else %}
             <p>You can edit your reviews <a href="{% url 'reviews' %}">here</a></p>
