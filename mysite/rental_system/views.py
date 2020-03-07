@@ -18,6 +18,7 @@ from django.core import serializers
 from django.db.models import Count
 
 from .forms import RatingForm
+from django.db.models import Avg
 
 def index(request):
     works = Work.objects.order_by('-pub_date').all()
@@ -49,7 +50,7 @@ def work(request, work_id):
     creators = work.creators.all()
     other_works = list(Work.objects.filter(~Q(id = work_id),creators__in=creators))[:5]
     rented = RentedWork.objects.all()
-
+    avarage = Rating.objects.filter(work_id = work_id, visible = True).aggregate(Avg('rating'))
     form = RatingForm()
 
     if rented.filter(rented_work_id = work_id).exists():
@@ -75,7 +76,7 @@ def work(request, work_id):
 
 
 
-    return render(request, 'rental_system/work.html', {'work': work, 'rented': returned, 'other_works': other_works, 'ratings': ratings[:5], 'form':form, 'commented': commented})
+    return render(request, 'rental_system/work.html', {'work': work, 'rented': returned, 'other_works': other_works, 'ratings': ratings[:5], 'form':form, 'commented': commented, 'avarage': avarage})
 
 def all_reviews(request, work_id):
     reviews = Rating.objects.filter(work_id = work_id, visible = True)

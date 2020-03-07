@@ -17,6 +17,9 @@
       </div>
     {% endif %}
     <h1>{{ work.title }}</h1>
+    {% if avarage.rating__avg %}
+    <p>Rating {{ avarage.rating__avg | floatformat }}</p>
+    {% endif %}
     <hr>
     <p>{{ work.type }}</p>
     <p>{{ work.creators.all |join:", " }}</p>
