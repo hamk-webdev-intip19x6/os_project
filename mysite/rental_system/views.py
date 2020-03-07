@@ -159,6 +159,7 @@ def test(request, work_id):
     data = serializers.serialize('json', rented)
     return render(request, 'rental_system/test.html', {'data': data})
 
+@login_required
 def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
