@@ -11,6 +11,3 @@ Samu Savikko, Olli Kokko ja Joni Heikkonen
 * Teoksien etsiminen
 * Teoksien lainaaminen
 * Teoksien palautus
-
-## Dokumentaatio
-TODO
