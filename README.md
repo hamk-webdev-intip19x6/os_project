@@ -7,7 +7,9 @@ Samu Savikko, Olli Kokko ja Joni Heikkonen
 [django-widget-tweaks](https://github.com/jazzband/django-widget-tweaks)
 
 ## Ominaisuudet
-* Rekisteröityminen & sisäänkirjautuminen
+* Rekisteröityminen, sisäänkirjautuminen, salasanan vaihto
 * Teoksien etsiminen
 * Teoksien lainaaminen
 * Teoksien palautus
+* Teoksien arvostelu ja kommentointi
+* Responsiivinen ulkoasu
