@@ -23,6 +23,10 @@
     }
 
     /*login*/
+    .head a  {
+      color: lightgray;
+    }
+
     .container {
         margin: auto;
         margin-top: 200px;
@@ -88,6 +92,10 @@
     }
 
     /*login*/
+    .head a  {
+      color: lightgray;
+    }
+
     .container {
         margin: auto;
         margin-top: 200px;
