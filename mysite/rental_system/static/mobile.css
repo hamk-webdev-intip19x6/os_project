@@ -1,7 +1,7 @@
 /*mobile.css*/
 
 @media(max-width:800px) {
-    .pc  {
+    .desktop  {
     display: none;
     }
 
@@ -19,6 +19,7 @@
     .mobile-searchbar {
         width: 80%;
         margin: 0 auto;
+        margin-top: 8px;
     }
 
     /*login*/
