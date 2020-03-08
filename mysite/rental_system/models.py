@@ -45,6 +45,7 @@ class Work(models.Model):
     title = models.CharField(max_length=200)
     desc = models.TextField(max_length=500)
     trailer = models.URLField(blank=True)
+    image = models.URLField(blank=True)
     pub_date = models.IntegerField(
         default=2020,
         validators=[
