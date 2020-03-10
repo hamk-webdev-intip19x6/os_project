@@ -54,7 +54,7 @@ def work(request, work_id):
     work = get_object_or_404(Work, pk=work_id)
     ratings = Rating.objects.filter(work_id = work_id, visible = True).order_by('-post_date')
     creators = work.creators.all()
-    other_works = list(Work.objects.filter(~Q(id = work_id),creators__in=creators))[:5]
+    other_works = list(Work.objects.filter(~Q(id = work_id),creators__in=creators).distinct())[:5]
     rented = RentedWork.objects.all()
     avarage = Rating.objects.filter(work_id = work_id, visible = True).aggregate(Avg('rating'))
 
