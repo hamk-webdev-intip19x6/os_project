@@ -22,7 +22,7 @@ from django.db.models import Avg
 
 def index(request):
     types = Type.objects.all()
-    works = Work.objects.filter(image__isnull=False).exclude(image__exact='').order_by('-date_added').all()[:8]
+    works = Work.objects.filter(image__isnull=False).exclude(image__exact='').order_by('-date_added').all()[:4]
 
     return render(request, 'rental_system/index.html', {'types': types, 'works': works})
 

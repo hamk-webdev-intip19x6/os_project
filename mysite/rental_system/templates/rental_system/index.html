@@ -5,18 +5,29 @@
 <!-- call empty tag to apply dark theme-->
 <input type="null" class="custom-control-input" id="DarkTheme">
 {% include 'mini-nav.html' %}
-<div class="container-fluid">
-    <br>
-    <h1>Recently added Works</h1>
-    <hr>
+</style>
+<div class="jumbotron text-center">
+    <h1 class="display-4">Rental System</h1>
+    <p class="lead">We have your favorite "Works"</p>
+    <hr class="my-4">
+    <p>You can rent and browse books, movies, music and so on!</p>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="{% url 'register' %}" role="button">Register</a>
+    </p>
+</div>
+<h1 class="ml-4">Recently added Works</h1>
+<hr>
+<div>
     <div class="row row-cols-1 row-cols-md-3  row-cols-lg-4 m-3">
         {% for work in works %}
         <div class="col mb-4">
             <div class="card">
                 {% if work.image %}
-                <img src="{{ work.image }}" class="card-img-top" alt="..." style="object-fit: cover; height: 60vh; width: 100%;">
+                <img src="{{ work.image }}" class="card-img-top" alt="..."
+                    style="object-fit: cover; height: 60vh; width: 100%;">
                 {% else %}
-                <img src="{% static 'kuvat/kirja.png' %}" class="card-img-top" alt="..." style="object-fit: cover; height: 60vh; width: 100%;">
+                <img src="{% static 'kuvat/kirja.png' %}" class="card-img-top" alt="..."
+                    style="object-fit: cover; height: 60vh; width: 100%;">
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ work.title }}</h5>
