@@ -21,9 +21,15 @@ from .forms import RatingForm
 from django.db.models import Avg
 
 def index(request):
-    works = Work.objects.order_by('-pub_date').all()
     types = Type.objects.all()
-    genres = Genre.objects.all()
+    works = Work.objects.filter(image__isnull=False).exclude(image__exact='').order_by('-date_added').all()[:8]
+
+    return render(request, 'rental_system/index.html', {'types': types, 'works': works})
+
+def type(request, type_name):
+    works = Work.objects.filter(type__type = type_name).order_by('-pub_date')
+    types = Type.objects.all()
+    genres = Work.objects.filter(type__type = type_name).values_list('genres__genre', flat=True).distinct()
     if not request.GET.get('search'):
         paginator = Paginator(works, 5)
 
@@ -42,7 +48,7 @@ def index(request):
     
     posts = sorted(search(query), key=attrgetter('title'), reverse=True)
     context['posts'] = posts
-    return render(request, 'rental_system/index.html', context)
+    return render(request, 'rental_system/type.html', context)
 
 def work(request, work_id):
     work = get_object_or_404(Work, pk=work_id)

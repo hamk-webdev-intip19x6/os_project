@@ -1,0 +1,20 @@
+{% block works %}
+<div class="card">
+    <div class="card-body">
+        <a href="{% url 'work' work.id %}">
+            <h5 class="card-title">{{ work.title }}</h5>
+        </a>
+        <p class="card-text"><small class="text-muted">{{ work.creators.all|join:", " }}</small></p>
+        <p class="card-text">{{ work.type.type }}:
+        {% if work.available %}
+        
+        <span class="text-success">Available</span>
+        {% else %}
+        <span class="text-danger">Rented</span>
+        {% endif %}
+        </p>
+        <p class="card-text">{{ work.desc }}</p>
+    </div>
+</div>
+<br>
+{% endblock %}

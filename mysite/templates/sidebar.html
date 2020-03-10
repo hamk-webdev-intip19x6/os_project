@@ -1,0 +1,59 @@
+{% block sidebar %}
+<nav id="sidebar">
+    <!--searchbar-->
+    <div class="searchbar">
+        <form name="searchform" method="GET">
+            <input type="text" class="form-control" name="search" id="search" placeholder="Search" minlength="3"
+                autocomplete="off" required>
+        </form>
+    </div>
+    <br>
+
+
+    <div class="mobile-navbar">
+        <nav class="navbar navbar-light" style="background-color: #eee;">
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="mobile-searchbar">
+                <form name="searchform" method="GET">
+                    <input type="text" class="form-control" name="search" id="search" placeholder="Search" minlength="3"
+                        autocomplete="off" required>
+                </form>
+            </div>
+        </nav>
+
+        <div class="collapse" id="navbarToggleExternalContent">
+            <div class="bg-light">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'popular' %}">Popular works</a>
+                    </li>
+                    {% for type in types %}
+                    <li class="nav-item">
+                        <a href="{% url 'type' type %}" class="nav-link">{{ type }}</a>
+                    </li>
+                    {% endfor %}
+                    {% for genre in genres %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="?search={{ genre }}">{{ genre }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="desktop">
+        <ul class="nav flex-column">
+            {% for genre in genres %}
+            <li class="nav-item">
+                <a class="nav-link" href="?search={{ genre }}">{{ genre }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</nav>
+{% endblock %}

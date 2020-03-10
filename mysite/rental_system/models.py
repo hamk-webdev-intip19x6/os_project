@@ -41,13 +41,20 @@ class Work(models.Model):
     creators = models.ManyToManyField(Creator)
     type = models.ForeignKey(Type, on_delete=models.CASCADE)
     genres = models.ManyToManyField(Genre)
-    publishers = models.ManyToManyField(Publisher, null=True, blank=True)
+    publishers = models.ManyToManyField(Publisher, blank=True)
     title = models.CharField(max_length=200)
     desc = models.TextField(max_length=500)
     trailer = models.URLField(blank=True)
     image = models.URLField(blank=True)
+    date_added = models.DateTimeField()
     pub_date = models.IntegerField(
-        default=2020,
+        default=datetime.date.today().year
+        
+        
+        
+        
+        
+        ,
         validators=[
             MaxValueValidator(datetime.date.today().year),
             MinValueValidator(1800)
@@ -71,6 +78,12 @@ class Work(models.Model):
         else:
             rating = round(rating['rating__avg'], 1)
         return rating
+
+    def has_image(self):
+        if image:
+            return True
+        else:
+            return False
         
 class RentedWork(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)

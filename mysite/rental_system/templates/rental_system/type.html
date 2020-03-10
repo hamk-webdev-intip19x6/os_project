@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'mobile.css' %}">
+<!-- call empty tag to apply dark theme-->
+<input type="null" class="custom-control-input" id="DarkTheme">
+{% include 'mini-nav.html' %}
+<div class="container-fluid">
+    <br>
+    <div class="row">
+        <div class="col-lg-2 col-12">
+            {% include 'sidebar.html' %}
+        </div>
+        <!--works-->
+        {% if works %}
+        <div class="col-lg-10 col-12">
+            {% for work in works %}
+            {% if query in work.title or query in work.title.casefold or query in work.desc or query in work.creators.all|join:", " or query in work.genres.all|join:", "  or query in work.type.type %}
+            {% include 'works.html' %}
+            {% endif %}
+            {% endfor %}
+
+            {% if not query %}
+            {% for work in works %}
+            {% include 'works.html' %}
+            {% endfor %}
+            {% endif %}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {% if works.has_previous %}
+                    <li class="page-item"><a class="page-link"
+                            href="?page={{ works.previous_page_number }}">Previous</a></li>
+                    {% endif %}
+                    {% for i in works.paginator.page_range %}
+                    {% if works.number == i %}
+                    <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if works.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ works.next_page_number }}">Next</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+    {% else %}
+    <p>No works are available.</p>
+    {% endif %}
+</div>
+{% endblock %}
