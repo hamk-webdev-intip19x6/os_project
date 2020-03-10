@@ -81,14 +81,14 @@ def work(request, work_id):
     return render(request, 'rental_system/work.html', {'work': work, 'other_works': other_works, 'ratings': ratings[:5], 'form':form, 'commented': commented,})
 
 def all_reviews(request, work_id):
-    reviews = Rating.objects.filter(work_id = work_id, visible = True)
+    reviews = Rating.objects.filter(work_id = work_id, visible = True).order_by('-post_date')
     title = Work.objects.filter(pk = work_id).values('title').first()
     return render(request, 'rental_system/all_reviews.html', {"reviews": reviews, "current_work": work_id, 'title': title})
 
 @login_required
 def reviews(request):
     user = request.user
-    ratings = Rating.objects.filter(user_id = user, visible = True).order_by('post_date').all()
+    ratings = Rating.objects.filter(user_id = user, visible = True).order_by('-post_date').all()
 
     return render(request, 'rental_system/reviews.html', {'comments': ratings})
 

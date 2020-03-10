@@ -6,8 +6,7 @@
 <link rel="stylesheet" href="{% static 'rating.css' %}">
 <!-- call empty tag to apply dark theme-->
 <input type="null" class="custom-control-input" id="DarkTheme">
-<br>
-<div class="container">
+<div class="container" id="con">
     <div>
         {% if rented.user == user %}
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -17,6 +16,16 @@
             </button>
         </div>
         {% endif %}
+        <div class="">
+            <h1>{{ work.title }}</h1>
+            {% if work.rating %}
+            <p>{{ work.genres.all|join:", " }} | Rating <strong>{{ work.rating }}</strong> <label for="5-stars"
+                    class="star" style="color: #f80;">&#9733;</label></p>
+            {% else %}
+            <p>{{ work.genres.all|join:", " }} | No rating</p>
+            {% endif %}
+            <hr>
+        </div>
         <div class="row" id="header">
             <div class="col-12 col-md-4">
                 {% if not work.image %}
@@ -26,17 +35,8 @@
                 {% endif %}
             </div>
             <div class="col-12 col-md-8">
-                <h1>{{ work.title }}</h1>
-                {% if work.rating %}
-                <p>Rating <strong>{{ work.rating }}</strong> <label for="5-stars" class="star"
-                        style="color: #f80;">&#9733;</label></p>
-                {% else %}
-                <p>No rating</p>
-                {% endif %}
-                <hr>
                 <p>{{ work.type }}</p>
                 <p>{{ work.creators.all |join:", " }}</p>
-                <p>{{ work.genres.all|join:", " }}</p>
                 <p>{{ work.publishers.all|join:", "}} {{ work.pub_date }}</p>
                 <p>{{ work.desc }}</p>
                 {% if user.is_authenticated %}
@@ -48,15 +48,15 @@
                 {% else %}
                 <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
                 {% endif %}
-         </div>
+            </div>
         </div>
         <hr>
         {% if work.trailer %}
         <div id="video">
-        <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" src="{{ work.trailer }}"></iframe>
-          </div>
-        <hr>
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="{{ work.trailer }}"></iframe>
+            </div>
+            <hr>
         </div>
         {% endif %}
     </div>

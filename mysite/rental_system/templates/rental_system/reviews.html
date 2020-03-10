@@ -3,7 +3,7 @@
 {% load static %}
 <!-- call empty tag to apply dark theme-->
 <input type="null" class="custom-control-input" id="DarkTheme">
-
+<br>
 <div class="container">
   <h3>Your reviews</h3>
   <hr>
@@ -14,7 +14,7 @@
       <h5 class="card-title"><a href="{% url 'work' comment.work.id %}">{{ comment.work.title }}</a></h5>
       <h5 class="card-title">{{ comment.rating }} {{ comment.user.username }}</h5>
       <p class="card-text">{{ comment.comment }}</p>
-      <p class="card-text"><small class="text-muted">{{ comment.edited }}</small></p>
+      <p class="card-text"><small class="text-muted">{{ comment.post_date }}</small></p>
       <a class="btn btn-primary" href="{% url 'edit_review' comment.id %}">Edit</a>
       <a class="btn btn-outline-danger" href="{% url 'disable_review' comment.id %}">Delete</a>
     </div>
