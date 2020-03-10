@@ -1,6 +1,6 @@
 {% block 'mini-nav' %}
 {% if types %}
-        <ul class="nav bg-light">
+        <ul class="nav bg-light" style="overflow-x: auto;">
             {% for type in types %}
             <li class="nav-item">
                 <a class="nav-link active" href="{% url 'type' type %}">{{ type }}</a>
