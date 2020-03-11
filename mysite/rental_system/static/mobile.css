@@ -85,7 +85,7 @@
         padding-left: 1%;
     }
 
-    .bg-light {
+    .nav.bg-light {
       display: flex;
       justify-content: center;
       align-items: center;
