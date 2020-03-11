@@ -60,7 +60,7 @@
 }
 
 [data-theme="dark"] .page-link {
-  border: 1px solid #444;
+  border: 1px solid #444 !important;
   background-color: #333 !important;
 }
 
@@ -68,3 +68,7 @@
   color: #6c757d !important;
 }
 
+[data-theme="dark"] .jumbotron {
+  color: #eee !important;
+  background-color: rgb(29, 29, 29) !important;
+}
