@@ -86,8 +86,10 @@
     }
 
     .bg-light {
-     text-align: center;
-     font-size: 14.5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3vw;
     }
 }
 
